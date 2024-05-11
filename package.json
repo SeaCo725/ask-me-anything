@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client",
+    "e2e"
+  ],
+  "scripts": {
+    "build:client": "yarn workspace ask-me-anything-client build",
+    "dev": "yarn workspace ask-me-anything-server dev",
+    "dev:debug": "yarn workspace ask-me-anything-server dev:debug",
+    "heroku-postbuild": "yarn workspace ask-me-anything-client build",
+    "start": "yarn workspace ask-me-anything-server start",
+    "dev:cypress": "yarn workspace ask-me-anything-server dev:e2e",
+    "e2e:open": "yarn workspace ask-me-anything-e2e e2e:open",
+    "e2e:run": "yarn workspace ask-me-anything-e2e e2e:run"
+  },
+  "engines": {
+    "node": "^16.18"
+  }
+}
