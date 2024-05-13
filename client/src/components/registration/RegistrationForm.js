@@ -8,6 +8,7 @@ import translateServerErrors from "../../services/translateServerErrors";
 
 const RegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
+    username: "",
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -20,9 +21,17 @@ const RegistrationForm = () => {
   const validateInput = (payload) => {
     setErrors({});
     setServerErrors({});
-    const { email, password, passwordConfirmation } = payload;
+    const { username, email, password, passwordConfirmation } = payload;
     const emailRegexp = config.validation.email.regexp.emailRegex;
     let newErrors = {};
+    
+    if (username.trim() == "") {
+      newErrors = {
+        ...newErrors,
+        username: "is required",
+      };
+    }
+
     if (!email.match(emailRegexp)) {
       newErrors = {
         ...newErrors,
@@ -104,6 +113,11 @@ const RegistrationForm = () => {
       <ErrorList errors={serverErrors} />
       <form onSubmit={onSubmit}>
         <div>
+          <label>
+            Username
+            <input type="text" name="username" value={userPayload.username} onChange={onInputChange} />
+            <FormError error={errors.username} />
+          </label>
           <label>
             Email
             <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />

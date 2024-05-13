@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
-
 import "../assets/scss/main.scss";
-
 import getCurrentUser from "../services/getCurrentUser";
-
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
+import UserProfile from "./UserProfile.js";
+import AuthenticatedRoute from "./authentication/AuthenticatedRoute.js";
+
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -32,6 +32,7 @@ const App = (props) => {
         <Route exact path="/">
           <h2>Hello from react</h2>
         </Route>
+        <AuthenticatedRoute exact path="/user-profile" component={UserProfile} user={currentUser}/>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
       </Switch>
