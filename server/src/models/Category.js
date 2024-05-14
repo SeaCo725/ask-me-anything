@@ -14,10 +14,24 @@ class Category extends unique(Model) {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["category"],
+      required: ["name"],
       properties: {
-        category: { type: "string", minLength: 2, maxLength: 100 },
+        name: { type: "string", minLength: 2, maxLength: 100 },
         description: { type: "string" }
+      }
+    }
+  }
+
+  static get relationMapping() {
+    const { Event } = require("./index.js")
+    return {
+      events: {
+        relation: Model.HasManyRelation,
+        modelClass: Event,
+        join: {
+          from: "categories.id",
+          to: "events.categoriesId"
+        }
       }
     }
   }

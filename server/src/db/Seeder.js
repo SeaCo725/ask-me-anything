@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { connection } from "../boot.js";
-import { Category, Event, Host, User, Question } from "../models/index.js"
+import { Category, Event, User, Question } from "../models/index.js"
 
 class Seeder {
   static async seed() {
@@ -14,80 +14,102 @@ class Seeder {
         image: "https://www.digitary.net/wp-content/uploads/2021/07/Generic-Profile-Image.png"
       })
     }
-
+    //1
     await Category.query().insert({
-      category: "Astronautics",
+      name: "Astronautics",
       description: "The science and technology of human space travel and exploration."
     })
+    //2
     await Category.query().insert({
-      category: "Professional Athlete",
+      name: "Professional Athlete",
       description: "Professional athletes are people with the ability to play a sport at the highest level of competition."
     })
+    //3
     await Category.query().insert({
-      category: "Healthcare",
+      name: "Healthcare",
       description: "Healthcare professionals work to diagnose, treat, and prevent illnesses and injuries,\
       encompassing fields such as medicine, nursing, pharmacy, and allied health professions."
     })
     //4
     await Category.query().insert({
-      category: "Technology",
+      name: "Technology",
       description: "The technology sector involves the development, implementation, and maintenance of\
       hardware, software, and systems, driving innovation across various industries and enhancing global connectivity."
     })
     //5
     await Category.query().insert({
-      category: "Finance",
+      name: "Finance",
       description: "Professionals in finance manage money, investments, and financial transactions, including \
       banking, investment banking, asset management, and financial planning, crucial for economic stability and growth."
     })
     //6
     await Category.query().insert({
-      category: "Education",
+      name: "Education",
       description: "Education professionals facilitate learning and development, including teachers, professors, tutors, \
       and administrators, shaping future generations and advancing knowledge."
     })
     //7
     await Category.query().insert({
-      category: "Engineering",
+      name: "Engineering",
       description: "Engineers apply scientific principles to design, build, and maintain structures, systems, and processes, \
       spanning disciplines such as civil, mechanical, electrical, and aerospace engineering."
     })
     //8
     await Category.query().insert({
-      category: "Law",
+      name: "Law",
       description: "Legal professionals interpret and uphold laws, provide counsel, and represent clients in legal matters, \
       ensuring justice and fairness in society through practices like litigation, corporate law, and public interest advocacy."
     })
     //9
     await Category.query().insert({
-      category: "Media and Entertainment",
+      name: "Media and Entertainment",
       description: "The media and entertainment industry encompasses content creation, distribution, and consumption across \
       various platforms, including film, television, music, gaming, and digital media, shaping culture and entertainment \
       experiences worldwide."
     })
 
-    await Host.query().insert({
-      userId: 1,
-      categoryId: 1
-    })
-
-    await Host.query().insert({
-      userId: 2,
-      categoryId: 5
-    })
-
+    //1
     await Event.query().insert({
       description: "Q&A with a real astronaught",
       startDate: "2024-05-14 17:00:00",
       categoryId: 1,
-      hostId: 1
+      userId: 1
     })
-
+    //2
     await Event.query().insert({
       description: "A hedge fund manager reveals their secrets",
       startDate: "2024-05-13 16:00:00",
       categoryId: 5,
-      hostId: 2
+      userId: 2
+    })
+    //3
+    await Event.query().insert({
+      description: "A practicing defense attorney answers questions in a way that\
+      does not constitute legal advice",
+      startDate: "2024-05-15 16:00:00",
+      categoryId: 8,
+      userId: 3
+    })
+    //4
+    await Event.query().insert({
+      description: "Michael Jordan dunks on the haters",
+      startDate: "2024-05-18 16:00:00",
+      categoryId: 2,
+      userId: 4
+    })
+    //5
+    await Event.query().insert({
+      description: "A Q&A with an experienced nurse",
+      startDate: "2024-05-17 11:30:00",
+      categoryId: 3,
+      userId: 5
+    })
+    //6
+    await Event.query().insert({
+      description: "Bill Gates fields YOUR questions",
+      startDate: "2024-05-16 03:00:00",
+      categoryId: 4,
+      userId: 6
     })
     //1
     await Question.query().insert({

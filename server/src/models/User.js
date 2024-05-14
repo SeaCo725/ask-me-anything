@@ -37,6 +37,20 @@ class User extends uniqueFunc(Model) {
     };
   }
 
+  static get relationMapping() {
+    const { Event } = require("./index.js")
+    return {
+      events: {
+        relation: Model.HasManyRelation,
+        modelClass: Event,
+        join: {
+          from: "users.id",
+          to: "events.userId"
+        }
+      }
+    }
+  }
+
   $beforeInsert() {
     return this.$checkUniqueness("email");
   }
