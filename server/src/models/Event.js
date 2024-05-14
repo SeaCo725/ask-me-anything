@@ -8,12 +8,33 @@ class Event extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["startDate", "categoryId", "hostId"],
+      required: ["startDate", "categoryId", "userId"],
       properties: {
         description: { type: "string" },
         startDate: { type: "string", format: "date-time"},
         categoryId: { type: "integer" },
-        hostId: { type: "integer" }
+        userId: { type: "integer"}
+      }
+    }
+  }
+  static get relationMappings() {
+    const { Category, User } = require("./index.js")
+    return {
+      categories: {
+        modelClass: Category,
+        relation: Model.BelongsToOneRelation,
+        join: {
+          from: "events.categoryId",
+          to: "categories.id"
+        }
+      },
+      users: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: User,
+        join: {
+          from: "events.userId",
+          to: "users.id"
+        }
       }
     }
   }
