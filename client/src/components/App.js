@@ -9,6 +9,7 @@ import TopBar from "./layout/TopBar";
 import UserProfile from "./UserProfile.js";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute.js";
 import UpcomingEvents from "./UpcomingEvents.js";
+import EventPage from "./EventPage.js";
 
 
 const App = (props) => {
@@ -31,6 +32,7 @@ const App = (props) => {
       <TopBar user={currentUser} />
       <Switch>
         <Route exact path="/" component={UpcomingEvents}/>
+        <Route exact path="/events/:id" component={EventPage}/>
         <AuthenticatedRoute exact path="/user-profile" component={UserProfile} user={currentUser}/>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
