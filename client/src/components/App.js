@@ -32,7 +32,9 @@ const App = (props) => {
       <TopBar user={currentUser} />
       <Switch>
         <Route exact path="/" component={UpcomingEvents}/>
-        <Route exact path="/events/:id" component={EventPage}/>
+        <Route exact path="/events/:id">
+          <EventPage user={currentUser} />
+        </Route>
         <AuthenticatedRoute exact path="/user-profile" component={UserProfile} user={currentUser}/>
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
