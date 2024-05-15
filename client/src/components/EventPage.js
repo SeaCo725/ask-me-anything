@@ -40,6 +40,7 @@ const EventPage = (props) => {
       const response = await fetch(`/api/v1/events/${id}`)
       const responseBody = await response.json()
       setEvent(responseBody.event)
+      setQuestions(responseBody.event.questions)
     } catch (error) {
       console.log(`Error in the fetch: ${error.message}`)
     }
@@ -98,15 +99,14 @@ const EventPage = (props) => {
       <p>This event is a Q&A in the {event.category.name} category.</p>
       <p>Event Details (provided by Host): {event.description}</p>
       <QuestionList event={event} setQuestions={setQuestions} questions={questions}/>
-      <div className="cell small-12 medium-8 large-6">
         <QuestionForm 
           setQuestionPayload={setQuestionPayload} 
           questionPayload={questionPayload}
           errors={errors} 
           user={props.user} 
           event={event} 
-          addQuestion={addQuestion}/>
-      </div>
+          addQuestion={addQuestion}
+        />
     </div>
   )
 }

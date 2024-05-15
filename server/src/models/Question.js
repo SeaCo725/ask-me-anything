@@ -16,6 +16,20 @@ class Question extends Model {
       }
     }
   }
+
+  static get relationMappings() {
+    const { Event } = require("./index.js")
+    return {
+      events: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Event,
+        join: {
+          from: "questions.eventId",
+          to: "events.id"
+        }
+      }
+    }
+  }
 }
 
 module.exports = Question

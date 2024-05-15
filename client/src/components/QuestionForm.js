@@ -19,7 +19,7 @@ const QuestionForm = props => {
   }
 
   return (
-    <>
+    <div className="cell small-12 medium-8 large-6">
       <form className="form grid-container" onSubmit={submitHandler}>
         <label htmlFor="question">
           {showLogInRequired ? <p>You must be logged in to submit a question.</p> : null}
@@ -35,7 +35,7 @@ const QuestionForm = props => {
         </label>
         <input className="button" type='submit' value='Submit' />
       </form>
-    </>
+    </div>
   )
 }
 
