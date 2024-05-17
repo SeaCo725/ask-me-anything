@@ -17,20 +17,20 @@ class Category extends unique(Model) {
       required: ["name"],
       properties: {
         name: { type: "string", minLength: 2, maxLength: 100 },
-        description: { type: "string" }
+        description: { type: "string", maxLength: 2500 }
       }
     }
   }
 
-  static get relationMapping() {
+  static get relationMappings() {
     const { Event } = require("./index.js")
     return {
       events: {
-        relation: Model.HasManyRelation,
         modelClass: Event,
+        relation: Model.HasManyRelation,
         join: {
           from: "categories.id",
-          to: "events.categoriesId"
+          to: "events.categoryId"
         }
       }
     }

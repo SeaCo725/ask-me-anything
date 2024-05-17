@@ -8,9 +8,10 @@ import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import UserProfile from "./UserProfile.js";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute.js";
-import UpcomingEvents from "./UpcomingEvents.js";
 import EventPage from "./EventPage.js";
-
+import Index from "./Index.js"
+import CategoryPage from "./CategoryPage.js";
+import CategoriesList from "./CategoriesList.js";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -31,7 +32,9 @@ const App = (props) => {
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path="/" component={UpcomingEvents}/>
+        <Route exact path="/" component={Index}/>
+        <Route exact path="/categories" component={CategoriesList}/>
+        <Route exact path="/categories/:categoryName" component={CategoryPage} user={currentUser}/>
         <Route exact path="/events/:id">
           <EventPage user={currentUser} />
         </Route>
