@@ -55,3 +55,22 @@
   padding: 0.25rem;
   max-width: 60rem;
 }
+
+h1 {
+  text-align: center;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.browse {
+  margin: 1rem 5rem;
+}
+
+.inline-element {
+  display: inline-block;
+  margin: 0 10px;
+}
+

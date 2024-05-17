@@ -27,5 +27,4 @@ eventsRouter.get("/:id", async (req, res) => {
   }
 })
 
-
 export default eventsRouter

@@ -2,20 +2,11 @@ import React, { useState, useEffect} from "react"
 import EventTile from "./EventTile.js"
 
 const UpcomingEvents = (props) => {
-  const [events, setEvents] = useState([])
 
-  const getEvents = async () => {
-    try{
-      const response = await fetch("/api/v1/events")
-      const parsedEvents = await response.json()
-      setEvents(parsedEvents.events)
-    } catch (error) {
-      console.log(`Error in fetch: ${error.message}`)
-    }
-  }
+
 
   let now = Date.now()
-  const eventList = events.map(event => {
+  const eventList = props.events.map(event => {
     event.startDate = new Date(event.startDate)
     if (event.startDate > now) {
       return <EventTile key={event.id} event={event} />
@@ -24,9 +15,7 @@ const UpcomingEvents = (props) => {
 
   eventList.sort((a,b ) => a.props.event.startDate - b.props.event.startDate)
 
-  useEffect(() => {
-    getEvents()
-  }, [])
+
 
   return (
     <div className="upcoming-events-container">
