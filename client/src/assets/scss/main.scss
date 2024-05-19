@@ -28,6 +28,8 @@
   padding: .5rem;
   background-color: lightblue;
   border-radius: .25rem;
+  max-width: 20rem;
+  min-width: 10rem;
 }
 
 .bold {
@@ -51,10 +53,13 @@
   margin: 3rem;
 }
 
-.form {
-  padding: 0.25rem;
-  max-width: 60rem;
+form {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin: 0 auto;
 }
+
 
 h1 {
   text-align: center;
@@ -74,3 +79,26 @@ h1 {
   margin: 0 10px;
 }
 
+div {
+  margin-bottom: 10px;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  padding: 5px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+h3 {
+  text-align: center;
+}

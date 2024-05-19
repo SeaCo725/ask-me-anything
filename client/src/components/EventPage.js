@@ -99,6 +99,7 @@ const EventPage = (props) => {
       <p>This event is a Q&A in the {event.category.name} category.</p>
       <p>Event Details (provided by Host): {event.description}</p>
       <QuestionList event={event} setQuestions={setQuestions} questions={questions}/>
+      {props.user ?
         <QuestionForm 
           setQuestionPayload={setQuestionPayload} 
           questionPayload={questionPayload}
@@ -106,7 +107,7 @@ const EventPage = (props) => {
           user={props.user} 
           event={event} 
           addQuestion={addQuestion}
-        />
+        /> : <p>Login to submit a question.</p> }
     </div>
   )
 }

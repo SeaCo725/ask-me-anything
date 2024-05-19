@@ -8,7 +8,7 @@ class Event extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["startDate", "categoryId", "userId"],
+      required: ["description", "startDate", "categoryId", "userId"],
       properties: {
         description: { type: "string" },
         startDate: { type: "string", format: "date-time"},
