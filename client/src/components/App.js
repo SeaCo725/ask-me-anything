@@ -34,7 +34,9 @@ const App = (props) => {
       <Switch>
         <Route exact path="/" component={Index}/>
         <Route exact path="/categories" component={CategoriesList}/>
-        <Route exact path="/categories/:categoryName" component={CategoryPage} user={currentUser}/>
+        <Route exact path="/categories/:categoryName">
+          <CategoryPage user={currentUser}/>
+        </Route>
         <Route exact path="/events/:id">
           <EventPage user={currentUser} />
         </Route>

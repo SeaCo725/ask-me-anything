@@ -8,7 +8,7 @@
 exports.up = async (knex) => {
   return knex.schema.createTable("events", (table) => {
     table.bigIncrements("id")
-    table.string("description")
+    table.string("description").notNullable()
     table.datetime("startDate").notNullable()
     table.bigInteger("categoryId").index().unsigned().notNullable().references("categories")
     table.bigInteger("userId").index().unsigned().notNullable().references("users")

@@ -1,6 +1,8 @@
 import express from 'express'
 import Event from "../../../models/Event.js"
 import EventSerializer from '../../../Serializers/EventSerializer.js'
+import cleanUserInput from '../../../Services/cleanUserInput.js'
+import { ValidationError } from 'objection'
 
 const eventsRouter = new express.Router()
 
@@ -24,6 +26,22 @@ eventsRouter.get("/:id", async (req, res) => {
   } catch (error) {
     console.log(error)
     res.status(500).json({ errors: error})
+  }
+})
+
+eventsRouter.post("/", async (req, res) => {
+  try {
+    const formInput = cleanUserInput(req.body)
+    const event = await Event.query().insertAndFetch(formInput)
+    const serializedEvent = await EventSerializer.summaryForIndex(event)
+    res.status(201).json({ event: serializedEvent })
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      res.status(422).json( { errors: error.data } )
+    } else {
+    console.log(error)
+    res.status(500).json({ errors: error })
+    }
   }
 })
 
