@@ -1,5 +1,5 @@
 import express from "express"
-import { Question } from "../../../models/index.js"
+import { Question, Answer } from "../../../models/index.js"
 import QuestionSerializer from "../../../Serializers/QuestionSerializer.js"
 import { ValidationError } from "objection"
 import cleanUserInput from "../../../Services/cleanUserInput.js"
@@ -19,6 +19,17 @@ questionsRouter.post("/", async (req, res) => {
       console.log(error)
       res.status(500).json( { error } )
     }
+  }
+})
+
+questionsRouter.delete("/:id", async (req, res) => {
+  try{
+    await Question.query().deleteById(req.params.id)
+    await Answer.query().delete().where('questionId', req.params.id)
+    res.status(204).json({})
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error })
   }
 })
 

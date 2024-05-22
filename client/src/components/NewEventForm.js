@@ -25,6 +25,17 @@ const NewEventForm = props => {
     }
     props.addEvent(updatedEventData)
   }
+
+  const clearForm = () => {
+    props.setNewEventData({
+      date: "",
+      time: "",
+      description: "",
+      userId: "",
+      categoryId: ""
+    })
+  }
+  
   return (
     <form onSubmit={onSubmitHandler}>
       <div>
@@ -55,7 +66,10 @@ const NewEventForm = props => {
           onChange={onChangeHandler} />
         </label>
       </div>
-      <button type="submit" className='button'>Submit</button>
+      <div className='buttons'>
+        <button type="submit" className='button'>Submit</button>
+        <button type="button" className='button' onClick={clearForm}>Clear</button>
+      </div>
     </form>
   )
 }
