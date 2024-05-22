@@ -5,6 +5,20 @@ import fetchEvents from "../services/fetchEvents";
 import NewEventForm from "./NewEventForm";
 import translateServerErrors from "../services/translateServerErrors";
 import ErrorList from "./layout/ErrorList";
+import Modal from 'react-modal'
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+Modal.setAppElement('#app')
 
 const CategoryPage = (props) => {
   const [category, setCategory] = useState({
@@ -20,6 +34,37 @@ const CategoryPage = (props) => {
   const [events, setEvents] = useState([])
   const [errors, setErrors] = useState({})
   const {categoryName} = useParams()
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  let subtitle;
+
+  const openModal = () => {
+    setIsOpen(true);
+  }
+
+  const afterOpenModal = () => {
+    subtitle.style.color = '#f00';
+  }
+
+  const closeModal =() => {
+    setIsOpen(false);
+  }
+
+  const profanityModal = (
+    <div>
+    <Modal
+      isOpen={modalIsOpen}
+      onAfterOpen={afterOpenModal}
+      onRequestClose={closeModal}
+      style={customStyles}
+      contentLabel="Example Modal"
+    >
+      <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Oops</h2>
+      <button className="delete-circle" onClick={closeModal}>X</button>
+      <p>Our profanity filter has detected one or more words that are not acceptable for submission.</p>
+      <p>Please edit your input and resubmit.</p>
+    </Modal>
+  </div>
+  )
 
   const getCategory = async () => {
     try {
@@ -94,6 +139,7 @@ const CategoryPage = (props) => {
         <h1>Welcome to {category.name}!</h1>
         <h4>Description: {category.description}</h4>
       </div>
+      {modalIsOpen ? profanityModal : null}
       <div className="upcoming-events-container">
         <h3>Upcoming Events:</h3>
         <div 
@@ -114,6 +160,7 @@ const CategoryPage = (props) => {
           addEvent={addEvent}
           newEventData={newEventData}
           setNewEventData={setNewEventData}
+          openModal={openModal}
         />
       </div> : <p>Login to create an event.</p>}
     </>

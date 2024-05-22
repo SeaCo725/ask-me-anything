@@ -1,10 +1,13 @@
 import React, { useState } from "react"
 import ErrorList from "./layout/ErrorList"
+import { RegExpMatcher, englishDataset, englishRecommendedTransformers } from 'obscenity'
 
 const QuestionForm = props => {
   const [showLogInRequired, setShowLogInRequired] = useState(false)
+
+    const matcher = new RegExpMatcher({ ...englishDataset.build(), ...englishRecommendedTransformers, });
   
-  const clearForm = () => {
+    const clearForm = () => {
     props.setErrors({})
     props.setQuestionPayload({
       question: ""
@@ -20,9 +23,13 @@ const QuestionForm = props => {
 
   const submitHandler = event => {
     event.preventDefault()
-    if (props.user) {
-      props.addQuestion(props.questionPayload)
-    } else setShowLogInRequired(true)
+    if (matcher.hasMatch(props.questionPayload.question)) {
+      props.openModal()
+    } else {
+      if (props.user) {
+        props.addQuestion(props.questionPayload)
+      } else setShowLogInRequired(true)
+    }
   }
 
   return (

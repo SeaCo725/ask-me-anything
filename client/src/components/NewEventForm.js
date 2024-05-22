@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
+import { RegExpMatcher, englishDataset, englishRecommendedTransformers } from 'obscenity'
+
 
 const NewEventForm = props => {
+
+  const matcher = new RegExpMatcher({
+    ...englishDataset.build(), 
+    ...englishRecommendedTransformers, 
+  });
+
 
   const combineDateAndTime = (date, time) => {
     const dateTimeString = `${date}T${time}:00`;
@@ -16,14 +24,18 @@ const NewEventForm = props => {
 
   const onSubmitHandler = event => {
     event.preventDefault()
-    const startDate = combineDateAndTime(props.newEventData.date, props.newEventData.time)
-    const updatedEventData = {
-      description: props.newEventData.description,
-      startDate: startDate,
-      userId: props.user.id,
-      categoryId: props.category.id
+    if (!matcher.hasMatch(props.newEventData.description)) {
+      const startDate = combineDateAndTime(props.newEventData.date, props.newEventData.time)
+      const updatedEventData = {
+        description: props.newEventData.description,
+        startDate: startDate,
+        userId: props.user.id,
+        categoryId: props.category.id
+      }
+      props.addEvent(updatedEventData)
+    } else {
+      props.openModal()
     }
-    props.addEvent(updatedEventData)
   }
 
   const clearForm = () => {
