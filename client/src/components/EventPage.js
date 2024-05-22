@@ -3,9 +3,11 @@ import QuestionList from "./QuestionList";
 import QuestionForm from "./QuestionForm";
 import { useParams } from "react-router-dom"
 import translateServerErrors from "../services/translateServerErrors"
+import AnswerList from "./AnswerList";
 
 const EventPage = (props) => {
   const [errors, setErrors] = useState({})
+  const [answers, setAnswers] = useState([])
   const [questions, setQuestions] = useState([])
   const [questionPayload, setQuestionPayload] = useState({
     question: ""
@@ -43,6 +45,16 @@ const EventPage = (props) => {
       setQuestions(responseBody.event.questions)
     } catch (error) {
       console.log(`Error in the fetch: ${error.message}`)
+    }
+  }
+
+  const getAnswers = async () => {
+    try {
+      const response = await fetch("/api/v1/answers")
+      const responseBody = await response.json()
+      setAnswers(responseBody.answers)
+    } catch (error) {
+      console.error(`Error in the fetch: ${ error.message }`)
     }
   }
 
@@ -87,27 +99,43 @@ const EventPage = (props) => {
 
   useEffect(() => {
     getEvent()
+    getAnswers()
   }, [])
 
   const dateObject = new Date(event.startDate)
   const longDate = dateObject.toString()
   return (
     <div className="evnt">
-      <h1>Welcome to the Event!</h1>
-      <p>Event start time: {longDate}</p>
-      <p>This event is hosted by - {event.host.username}</p>
-      <p>This event is a Q&A in the {event.category.name} category.</p>
-      <p>Event Details (provided by Host): {event.description}</p>
-      <QuestionList event={event} setQuestions={setQuestions} questions={questions}/>
-      {props.user ?
-        <QuestionForm 
-          setQuestionPayload={setQuestionPayload} 
-          questionPayload={questionPayload}
-          errors={errors} 
-          user={props.user} 
-          event={event} 
-          addQuestion={addQuestion}
-        /> : <p>Login to submit a question.</p> }
+      <div className="evnt-text">
+        <h1>Welcome to the Event!</h1>
+        <p>Event start time: {longDate}</p>
+        <p>This event is hosted by - {event.host.username}</p>
+        <p>This event is a Q&A in the {event.category.name} category.</p>
+        <p>Event Details (provided by Host): {event.description}</p>
+      </div>
+      <QuestionList 
+        event={event} 
+        setQuestions={setQuestions} 
+        questions={questions}
+        user={props.user}
+        errors={errors}
+        setErrors={setErrors}
+        answers={answers}
+        setAnswers={setAnswers}
+      />
+      <div className="grid-x grid-margin-x answer-box" >
+        <AnswerList event={event} answers={answers} setAnswers={setAnswers}/>
+        {props.user ?
+          <QuestionForm 
+            setQuestionPayload={setQuestionPayload} 
+            questionPayload={questionPayload}
+            errors={errors} 
+            setErrors={setErrors}
+            user={props.user} 
+            event={event} 
+            addQuestion={addQuestion}
+          /> : <p>Login to submit a question.</p> }
+      </div>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { connection } from "../boot.js";
-import { Category, Event, User, Question } from "../models/index.js"
+import { Category, Event, User, Question, Answer } from "../models/index.js"
 
 class Seeder {
   static async seed() {
@@ -143,14 +143,14 @@ class Seeder {
     //1
     await Event.query().insert({
       description: "Q&A with a real astronaught",
-      startDate: "2024-05-14 17:00:00",
+      startDate: "2024-06-14 17:00:00",
       categoryId: 1,
       userId: 1
     })
     //2
     await Event.query().insert({
       description: "A hedge fund manager reveals their secrets",
-      startDate: "2024-05-21 16:00:00",
+      startDate: "2024-06-21 16:00:00",
       categoryId: 1,
       userId: 2
     })
@@ -158,14 +158,14 @@ class Seeder {
     await Event.query().insert({
       description: "A practicing defense attorney answers questions in a way that\
       does not constitute legal advice",
-      startDate: "2024-05-20 16:00:00",
+      startDate: "2024-06-20 16:00:00",
       categoryId: 2,
       userId: 3
     })
     //4
     await Event.query().insert({
       description: "Michael Jordan dunks on the haters",
-      startDate: "2024-05-18 16:00:00",
+      startDate: "2024-06-18 16:00:00",
       categoryId: 2,
       userId: 4
     })
@@ -179,7 +179,7 @@ class Seeder {
     //6
     await Event.query().insert({
       description: "Bill Gates fields YOUR questions",
-      startDate: "2024-05-19 03:00:00",
+      startDate: "2024-06-19 03:00:00",
       categoryId: 4,
       userId: 6
     })
@@ -242,6 +242,32 @@ class Seeder {
       question: "What color is your bugati?",
       eventId: 2,
       userId: 1
+    })
+
+    await Answer.query().insert({
+      answer: "Obviously my new Hedge-coin is best, claim your stake today.",
+      questionId: 9,
+      eventId: 2
+    })
+    await Answer.query().insert({
+      answer: "What a stupid question. Red is the only real choice.",
+      questionId: 10,
+      eventId: 2
+    })
+    await Answer.query().insert({
+      answer: "I lift fat stacks of cash every day, where are your gains?",
+      questionId: 8,
+      eventId: 2
+    })
+    await Answer.query().insert({
+      answer: "the streets",
+      questionId: 6,
+      eventId: 2
+    })
+    await Answer.query().insert({
+      answer: "more than you",
+      questionId:7,
+      eventId: 2
     })
 
     console.log("Done!");
