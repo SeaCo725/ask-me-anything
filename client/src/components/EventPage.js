@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 import translateServerErrors from "../services/translateServerErrors"
 import AnswerList from "./AnswerList";
 import Modal from 'react-modal'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const customStyles = {
   content: {
@@ -20,6 +21,7 @@ const customStyles = {
 Modal.setAppElement('#app')
 
 const EventPage = (props) => {
+  const [eligibleToStart, setEligibleToStart] = useState(false)
   const [errors, setErrors] = useState({})
   const [answers, setAnswers] = useState([])
   const [questions, setQuestions] = useState([])
@@ -32,6 +34,7 @@ const EventPage = (props) => {
     startDate: "",
     categoryId: "",
     userId: "",
+    isLive: false,
     category: {
       createdAt: "",
       description: "",
@@ -48,6 +51,7 @@ const EventPage = (props) => {
       username: ""
     }
   })
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
   let subtitle;
 
@@ -65,19 +69,21 @@ const EventPage = (props) => {
 
   const profanityModal = (
     <div>
-    <Modal
-      isOpen={modalIsOpen}
-      onAfterOpen={afterOpenModal}
-      onRequestClose={closeModal}
-      style={customStyles}
-      contentLabel="Example Modal"
-    >
-      <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Oops</h2>
-      <button className="delete-circle" onClick={closeModal}>X</button>
-      <p>Our profanity filter has detected one or more words that are not acceptable for submission.</p>
-      <p>Please edit your input and resubmit.</p>
-    </Modal>
-  </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <div className="center-text">
+          <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Yikes!</h2>
+          <button className="delete-circle" onClick={closeModal}>X</button>
+          <p>Our profanity filter has detected one or more words that are not acceptable for submission.</p>
+          <p>Please edit your input and resubmit.</p>
+        </div>
+      </Modal>
+    </div>
   )
 
   const { id } = useParams()
@@ -88,6 +94,10 @@ const EventPage = (props) => {
       const responseBody = await response.json()
       setEvent(responseBody.event)
       setQuestions(responseBody.event.questions)
+      const startDate = new Date(responseBody.event.startDate)
+      if ( startDate < now) {
+        setEligibleToStart(true)
+      }
     } catch (error) {
       console.log(`Error in the fetch: ${error.message}`)
     }
@@ -142,21 +152,80 @@ const EventPage = (props) => {
     }
   }
 
+  const toggleLive = async () => {
+    try {
+      const response = await fetch(`/api/v1/events/${id}`, {
+        method: "PATCH",
+        headers: new Headers ({
+          "Content-Type": "application/json"
+        }),
+        body: JSON.stringify({ "isLive": !event.isLive })
+      })
+      if (!response.ok) {
+        if (response.status === 422) {
+          const errorBody = await response.json();
+          const newErrors = translateServerErrors(errorBody.errors);
+          return setErrors(newErrors);
+        } else {
+          const errorMessage = `${response.status} (${response.statusText})`;
+          const error = new Error(errorMessage);
+          throw error;
+        }
+      } else {
+        const parsedResponse = await response.json()
+        setEvent(parsedResponse.event)
+        setQuestions(parsedResponse.event.questions)
+      } 
+    } catch(error) {
+        console.log("Error in the edit request: ", error.message);
+      }
+  }
+
   useEffect(() => {
     getEvent()
+  }, [])
+
+  useEffect(() => {
     getAnswers()
   }, [])
 
+  const onOffToggle = () => {toggleLive()}
+
+  let liveToggle = "fa-toggle-off"
+  let toggleColor = "gray"
+  if (event.isLive) {
+    liveToggle = "fa-toggle-on"
+    toggleColor = "green"
+  }
+  if (!event.isLive) {
+    liveToggle = "fa-toggle-off"
+    toggleColor = "gray"
+  }
+
+  const now = Date.now()
   const dateObject = new Date(event.startDate)
   const longDate = dateObject.toString()
+
   return (
-    <div className="evnt">
-      <div className="evnt-text">
-        <h1>Welcome to the Event!</h1>
-        <p>Event start time: {longDate}</p>
-        <p>This event is hosted by - {event.host.username}</p>
-        <p>This event is a Q&A in the {event.category.name} category.</p>
-        <p>Event Details (provided by Host): {event.description}</p>
+    <div className="event">
+      <div className="event-header">
+        {eligibleToStart && props.user && props.user.id === event.host.id ? 
+          <div className="toggle-container">
+            <div className="live-toggle" onClick={onOffToggle}>
+              <h6>Start Event</h6>
+              <FontAwesomeIcon 
+                icon={`fa-solid ${liveToggle}`} 
+                color={toggleColor} 
+                size="4x" 
+              />
+            </div>
+          </div> : null }
+        <div className="event-text">
+          <h1>{event.description}</h1>
+          <p>Event start time: {longDate}</p>
+          <p>This event is hosted by - {event.host.username}</p>
+          <p>This event is a Q&A in the {event.category.name} category.</p>
+        </div>
       </div>
       {modalIsOpen ? profanityModal : null}
       <QuestionList 

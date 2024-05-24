@@ -6,6 +6,7 @@ import NewEventForm from "./NewEventForm";
 import translateServerErrors from "../services/translateServerErrors";
 import ErrorList from "./layout/ErrorList";
 import Modal from 'react-modal'
+import LiveEvents from "./LiveEvents";
 
 const customStyles = {
   content: {
@@ -140,6 +141,7 @@ const CategoryPage = (props) => {
         <h4>Description: {category.description}</h4>
       </div>
       {modalIsOpen ? profanityModal : null}
+      <LiveEvents events={categoryEvents}/>
       <div className="upcoming-events-container">
         <h3>Upcoming Events:</h3>
         <div 
