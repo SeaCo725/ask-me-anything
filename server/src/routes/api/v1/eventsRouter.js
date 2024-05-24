@@ -13,6 +13,7 @@ eventsRouter.get("/", async (req, res) => {
       events.map(async (event) => EventSerializer.summaryForIndex(event)))
     res.status(200).json({ events: serializedEvents })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ errors: error })
   }
 })
@@ -42,6 +43,20 @@ eventsRouter.post("/", async (req, res) => {
     console.log(error)
     res.status(500).json({ errors: error })
     }
+  }
+})
+
+eventsRouter.patch("/:id", async (req, res) => {
+  let eventId = req.params.id
+  try {
+    const updatedEvent = await Event.query().patchAndFetchById(eventId, req.body)
+    console.log("event after patch:", updatedEvent)
+    const serializedEvent = await EventSerializer.summaryForIndex(updatedEvent)
+    console.log("serializedEvent:", serializedEvent)
+    res.status(200).json({ event: serializedEvent })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ errors: error})
   }
 })
 

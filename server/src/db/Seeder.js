@@ -5,8 +5,26 @@ import { Category, Event, User, Question, Answer } from "../models/index.js"
 class Seeder {
   static async seed() {
     
+    const currentDate = new Date()
+    const expendableDate2 = new Date()
+    const expendableDate3 = new Date()
+    const expendableDate4 = new Date()
+    const expendableDate5 = new Date()
+    const expendableDate6 = new Date()
+    const currentHours = currentDate.getHours()
+    const lessTwoHours = currentDate.getHours() - 2
+    const lessOneHour = currentDate.getHours() - 1
+    const plusOneHour = currentDate.getHours() + 1
+    const plusTwoHours = currentDate.getHours() + 2
+    const plusThreeHours = currentDate.getHours() + 3
+    const currentLessTwoHours = new Date(expendableDate2.setHours(lessTwoHours))
+    const currentLessOneHour = new Date(expendableDate3.setHours(lessOneHour))
+    const currentPlusOne = new Date(expendableDate4.setHours(plusOneHour))
+    const currentPlusTwo = new Date(expendableDate5.setHours(plusTwoHours))
+    const currentPlusThree = new Date(expendableDate6.setHours(plusThreeHours))
+    
     for (let i = 1; i <= 20; i++) {
-
+      
       await User.query().insert({
         email: `email${i}@email.com`,
         username: `user${i}`,
@@ -140,39 +158,39 @@ class Seeder {
       market insights and negotiation skills."
     })
 
-    //1
+    //1 "2024-06-14 17:00:00"
     await Event.query().insert({
       description: "Q&A with a real astronaught",
-      startDate: "2024-06-14 17:00:00",
+      startDate: currentLessTwoHours.toISOString(),
       categoryId: 1,
       userId: 1
     })
-    //2
+    //2 "2024-06-21 16:00:00"
     await Event.query().insert({
       description: "A hedge fund manager reveals their secrets",
-      startDate: "2024-06-21 16:00:00",
+      startDate: currentLessOneHour.toISOString(),
       categoryId: 1,
       userId: 2
     })
-    //3
+    //3 "2024-06-20 16:00:00"
     await Event.query().insert({
       description: "A practicing defense attorney answers questions in a way that\
       does not constitute legal advice",
-      startDate: "2024-06-20 16:00:00",
+      startDate: currentPlusOne.toISOString(),
       categoryId: 2,
       userId: 3
     })
-    //4
+    //4 "2024-06-18 16:00:00"
     await Event.query().insert({
       description: "Michael Jordan dunks on the haters",
-      startDate: "2024-06-18 16:00:00",
+      startDate: currentPlusTwo.toISOString(),
       categoryId: 2,
       userId: 4
     })
-    //5
+    //5 "2024-05-17 11:30:00"
     await Event.query().insert({
       description: "A Q&A with an experienced nurse",
-      startDate: "2024-05-17 11:30:00",
+      startDate: currentPlusThree.toISOString(),
       categoryId: 2,
       userId: 5
     })

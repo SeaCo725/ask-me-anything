@@ -31,6 +31,13 @@ body, html {
   padding: .5rem;
 }
 
+.live-events-container {
+  background-color: rgb(233, 226, 226);
+  max-width: 100rem;
+  margin: 1rem;
+  padding: .5rem;
+}
+
 .event-tile {
   padding: .5rem;
   background-color: lightblue;
@@ -43,12 +50,18 @@ body, html {
   font-weight: bold;
 }
 
-.evnt {
+.event {
   background-color: #33ccff;
 }
 
-.evnt-text {
+.event-header {
+  display: flex;
+}
+
+.event-text {
   text-align: center;
+  padding-top: 2rem;
+  padding-left: 2.5rem;
 }
 
 .question-container {
@@ -182,4 +195,28 @@ h3 {
 
 .answer-box {
   margin: 0 3rem;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.live-toggle {
+  border: solid black;
+  background-color: rgb(171, 238, 229);
+  border-radius: .5rem;
+  padding: 1rem;
+  font-weight: bold;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.live-toggle:hover {
+  background: #f0f0f0
 }

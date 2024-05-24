@@ -1,9 +1,7 @@
-import React, { useState, useEffect} from "react"
+import React from "react"
 import EventTile from "./EventTile.js"
 
 const UpcomingEvents = (props) => {
-
-
 
   let now = Date.now()
   const eventList = props.events.map(event => {
@@ -14,8 +12,6 @@ const UpcomingEvents = (props) => {
   })
 
   eventList.sort((a,b ) => a.props.event.startDate - b.props.event.startDate)
-
-
 
   return (
     <div className="upcoming-events-container">
