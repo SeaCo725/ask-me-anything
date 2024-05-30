@@ -21,10 +21,9 @@ const LiveEvents = (props) => {
   return (
     <div className="live-events-container">
       <h3>Events Currently Live:</h3>
-      <div className="grid-x grid-padding-y grid-container small-12 grid-margin-x grid-margin-y upcoming-events-list">
+      <div className="grid-x grid-padding-y small-12 grid-margin-x grid-margin-y upcoming-events-list">
         {eventList}
       </div>
-
     </div>
   )
 }

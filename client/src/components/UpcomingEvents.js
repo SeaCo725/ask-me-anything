@@ -14,9 +14,9 @@ const UpcomingEvents = (props) => {
   eventList.sort((a,b ) => a.props.event.startDate - b.props.event.startDate)
 
   return (
-    <div className="upcoming-events-container">
+    <div className="event-list">
       <h3>Upcoming Events:</h3>
-      <div className="grid-x grid-padding-y grid-container small-12 grid-margin-x grid-margin-y upcoming-events-list">
+      <div className="grid-x grid-padding-y small-12 grid-margin-x grid-margin-y upcoming-events-list">
         {eventList}
       </div>
 

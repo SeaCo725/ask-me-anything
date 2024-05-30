@@ -5,9 +5,9 @@ const TopCategories = (props) => {
 
   const topFiveCategories = props.topFive
   const topFiveLinks = topFiveCategories.map((category, index) => (
-    <div className="inline-container" key={index}>
+    <div className="top-categories" key={index}>
       <Link to={`/categories/${category}`}>
-        <p className="inline-element">{category}</p>
+        <p className="">{category}</p>
       </Link>
     </div>
   ))

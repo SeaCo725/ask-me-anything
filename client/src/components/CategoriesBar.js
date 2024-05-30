@@ -6,26 +6,22 @@ import getTopCategories from '../services/getTopCategories.js'
 const CategoriesBar = props => {
 
   const allEvents = props.events
-  const topFive = getTopCategories(allEvents, 5)
+  const topCategories = getTopCategories(allEvents, 10)
   
   return (
-    <div className='top-bar'>
-      <div className='top-bar-left'>
-        <ul className='menu'>
-          <li className='menu-text'>
-            Top Categories: 
-          </li>
+    <nav className='categories-bar'>
+      <div className='top-categories'>
+        <ul className='top-categories-list'>
+          <h6 className='bold'>Top Categories: </h6>
           <li>
-            <TopCategories topFive={topFive}/>
+            <TopCategories topFive={topCategories}/>
           </li>
         </ul>
-      </div>
-      <div className='top-bar-right'>
         <Link to="/categories">
-          <p className='browse'>Browse All Categories</p>
+          <h5 className='browse-all'>Browse All Categories</h5>
         </Link>
       </div>
-    </div>
+    </nav>
   )
 }
 

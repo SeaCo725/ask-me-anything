@@ -33,8 +33,8 @@ const QuestionForm = props => {
   }
 
   return (
-    <div className="cell grid-container small-4">
-      <form id="newQuestionForm" onSubmit={submitHandler}>
+    <div className="">
+      <form className="question-form" onSubmit={submitHandler}>
         <div>
           <label htmlFor="question">
             {showLogInRequired ? <p>You must be logged in to submit a question.</p> : null}

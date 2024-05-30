@@ -11,15 +11,9 @@ const EventTile = (props) => {
   return (
     <div className="cell small-6 medium-4 large-auto event-tile">
       <Link to={`/events/${props.event.id}`}>
-        <p className="bold">Start Time:</p>
-        <h6>{dateString}</h6>
-        <h6>{standardTime}</h6>
-        <div className="inline-container">
-          <p className="bold inline-element">Host: </p>
-          <h5 className="inline-element">{props.event.host.username}</h5>
-        </div>
-        <p className="bold">Category: </p>
-        <h5>{props.event.category.name}</h5>
+        <h5>{props.event.description}</h5>
+        <h6 className="inline-element">Hosted by: {props.event.host.username}</h6>
+        <p>{dateString} {standardTime}</p>
       </Link>
     </div>
   )

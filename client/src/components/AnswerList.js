@@ -12,7 +12,7 @@ const AnswerList = (props) => {
   })
 
   return (
-    <div className="small-8">
+    <div className="answer-list-container">
       <h3>Answered Questions:</h3>
       <div className="callout grid-x">
         {answerList}
