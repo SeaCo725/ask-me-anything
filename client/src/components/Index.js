@@ -17,12 +17,15 @@ const Index = () => {
 
   return (
     <div>
-      <CategoriesBar events={events}/>
-      <h1>𝔸𝕤𝕜 𝕄𝕖 𝔸𝕟𝕪𝕥𝕙𝕚𝕟𝕘</h1>
-      <LiveEvents events={events} />
-      <UpcomingEvents events={events}/>
+      <h1 className='site-name'>𝔸𝕤𝕜 𝕄𝕖 𝔸𝕟𝕪𝕥𝕙𝕚𝕟𝕘</h1>
+      <div className='index-container'>
+        <CategoriesBar events={events}/>
+        <div className='event-container'>
+          <LiveEvents events={events} />
+          <UpcomingEvents events={events}/>
+        </div>
+      </div>
     </div>
-
   )
 }
 

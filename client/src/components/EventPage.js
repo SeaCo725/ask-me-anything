@@ -238,7 +238,7 @@ const EventPage = (props) => {
         answers={answers}
         setAnswers={setAnswers}
       />
-      <div className="grid-x grid-margin-x answer-box" >
+      <div className="answer-box" >
         <AnswerList event={event} answers={answers} setAnswers={setAnswers}/>
         {props.user ?
           <QuestionForm 
