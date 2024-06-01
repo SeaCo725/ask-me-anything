@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { RegExpMatcher, englishDataset, englishRecommendedTransformers } from 'obscenity'
+import ErrorList from './layout/ErrorList';
 
 
 const NewEventForm = props => {
@@ -8,7 +9,6 @@ const NewEventForm = props => {
     ...englishDataset.build(), 
     ...englishRecommendedTransformers, 
   });
-
 
   const combineDateAndTime = (date, time) => {
     const dateTimeString = `${date}T${time}:00`;
@@ -46,10 +46,13 @@ const NewEventForm = props => {
       userId: "",
       categoryId: ""
     })
+    props.setErrors({})
   }
   
   return (
-    <form onSubmit={onSubmitHandler}>
+    <form className='new-event-form' onSubmit={onSubmitHandler}>
+      <ErrorList errors={props.errors}/>
+      <h3>Host Event:</h3>
       <div>
         <label htmlFor='date'> Select Date:
           <input 

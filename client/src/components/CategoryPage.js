@@ -4,9 +4,9 @@ import EventTile from "./EventTile";
 import fetchEvents from "../services/fetchEvents";
 import NewEventForm from "./NewEventForm";
 import translateServerErrors from "../services/translateServerErrors";
-import ErrorList from "./layout/ErrorList";
 import Modal from 'react-modal'
 import LiveEvents from "./LiveEvents";
+import UpcomingEvents from './UpcomingEvents'
 
 const customStyles = {
   content: {
@@ -36,6 +36,7 @@ const CategoryPage = (props) => {
   const [errors, setErrors] = useState({})
   const {categoryName} = useParams()
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  
   let subtitle;
 
   const openModal = () => {
@@ -135,27 +136,18 @@ const CategoryPage = (props) => {
   eventList.sort((a,b ) => a.props.event.startDate - b.props.event.startDate)
 
   return (
-    <>
-      <div>
+    <div>
+      <div className="category-header">
         <h1>Welcome to {category.name}!</h1>
         <h4>Description: {category.description}</h4>
       </div>
       {modalIsOpen ? profanityModal : null}
       <LiveEvents events={categoryEvents}/>
-      <div className="upcoming-events-container">
-        <h3>Upcoming Events:</h3>
-        <div 
-          className="grid-x grid-padding-y grid-container small-12 grid-margin-x 
-          grid-margin-y upcoming-events-list"
-        >
-          {eventList}
-        </div>
-      </div>
+      <UpcomingEvents events={categoryEvents} />
       {props.user ?
-      <div className="form">
-        <h3>Create Event:</h3>
-        <ErrorList errors={errors}/>
-        <NewEventForm 
+      <div className="form-container">
+        <NewEventForm
+          errors={errors} 
           setErrors={setErrors}
           category={category} 
           user={props.user} 
@@ -165,7 +157,7 @@ const CategoryPage = (props) => {
           openModal={openModal}
         />
       </div> : <p>Login to create an event.</p>}
-    </>
+    </div>
   )
 }
 
