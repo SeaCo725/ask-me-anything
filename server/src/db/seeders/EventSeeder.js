@@ -13,7 +13,7 @@ class EventSeeder {
     //2
     await Event.query().insert({
       description: "A hedge fund manager reveals their secrets",
-      startDate: dateDifference(0, 8),
+      startDate: dateDifference(0, -4),
       categoryId: 5,
     })
     //3
