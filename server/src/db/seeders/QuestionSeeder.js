@@ -89,66 +89,112 @@ class QuestionSeeder {
         userId: i+1,
       })
     }
-    //Questions for specific events
+    //Questions and answers for specific events
     //11
-    await Question.query().insert({
+    const sick = await Question.query().insert({
       question: "Did you get sick on lift-off?",
       eventId: 1,
       userId: 11
     })
+    await sick.$relatedQuery('answers').insert({ 
+      answer: `I didn't personally and I won't name names, but I know a few guys who 
+      did.`, 
+      eventId: 1
+    })
     //12
-    await Question.query().insert({
+    const aliens = await Question.query().insert({
       question: "Are extra-terrestials real?",
       eventId: 1,
       userId: 2
     })
+    await aliens.$relatedQuery('answers').insert({ 
+      answer: `No comment.`,
+      eventId: 1,
+    })
     //13
-    await Question.query().insert({
+    const moonBase = await Question.query().insert({
       question: "Do you think humans will ever build a base on the moon?",
       eventId: 1,
       userId: 12
     })
+    await moonBase.$relatedQuery('answers').insert({ 
+      answer: `I'm confident it will happen in our lifetime. There are a lot of great 
+      reasons to do so, I just hope it is not used for malicious purposes.`,
+      eventId: 1,
+    })
     //14
-    await Question.query().insert({
+    const gravity = await Question.query().insert({
       question: "What is it like in zero gravity?",
       eventId: 1,
       userId: 13
     })
+    await gravity.$relatedQuery('answers').insert({ 
+      answer: `It's very strange, but it becomes normal a lot quicker than you would 
+      imagine.`,
+      eventId: 1,
+    })
     //15
-    await Question.query().insert({
+    const rations = await Question.query().insert({
       question: "Do the space rations taste good?",
       eventId: 1,
       userId: 14
     })
+    await rations.$relatedQuery('answers').insert({ 
+      answer: `Thankfully they are pretty good. Just because they come in a tube doesn't 
+      mean you can't have sugar in space!`,
+      eventId: 1,
+    })
     //11
-    await Question.query().insert({
+    const client = await Question.query().insert({
       question: "Who is your highest profile client?",
       eventId: 2,
       userId: 15
     })
+    await client.$relatedQuery('answers').insert({ 
+      answer: `I've got clients all over Hollywood and Wall Street, I'm not naming any 
+      names but one of them was stuck on Mars for a while.`,
+      eventId: 2,
+    })
     //12
-    await Question.query().insert({
+    const money = await Question.query().insert({
       question: "How much do you make per year?",
       eventId: 2,
       userId: 16
     })
+    await money.$relatedQuery('answers').insert({ 
+      answer: `When you get to this point you stop counting.`,
+      eventId: 2,
+    })
     //13
-    await Question.query().insert({
+    const sectors = await Question.query().insert({
       question: "What sectors do you see as growing and which are declining?",
       eventId: 2,
       userId: 17
     })
+    await sectors.$relatedQuery('answers').insert({ 
+      answer: `Crypto and NFTs are hot, real estate and retail are losers.`,
+      eventId: 2,
+    })
     //14
-    await Question.query().insert({
+    const crypto = await Question.query().insert({
       question: "Which crypto currency you down with?",
       eventId: 2,
       userId: 18
     })
+    await crypto.$relatedQuery('answers').insert({ 
+      answer: `I'm so glad you asked. For a limited time you can get 50% off your stake 
+      of my new MadMoneyMax coin. It's going to be crazy.`,
+      eventId: 2,
+    })
     //15
-    await Question.query().insert({
+    const color = await Question.query().insert({
       question: "What color is your bugati?",
       eventId: 2,
       userId: 19
+    })
+    await color.$relatedQuery('answers').insert({ 
+      answer: `Don't be daft. I obviously got one in every color.`,
+      eventId: 2,
     })
   }
 }
