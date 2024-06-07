@@ -12,7 +12,6 @@ exports.up = async (knex) => {
     table.datetime("startDate").notNullable()
     table.boolean("isLive").notNullable().defaultTo(false)
     table.bigInteger("categoryId").index().unsigned().notNullable().references("categories")
-    table.bigInteger("userId").index().unsigned().notNullable().references("users")
     table.timestamp("createdAt").notNullable().defaultTo(knex.fn.now())
 		table.timestamp("updatedAt").notNullable().defaultTo(knex.fn.now())
   })

@@ -3,6 +3,7 @@ import Event from "../../../models/Event.js"
 import EventSerializer from '../../../Serializers/EventSerializer.js'
 import cleanUserInput from '../../../Services/cleanUserInput.js'
 import { ValidationError } from 'objection'
+import Follow from '../../../models/Follow.js'
 
 const eventsRouter = new express.Router()
 
@@ -32,9 +33,13 @@ eventsRouter.get("/:id", async (req, res) => {
 
 eventsRouter.post("/", async (req, res) => {
   try {
-    const formInput = cleanUserInput(req.body)
-    const event = await Event.query().insertAndFetch(formInput)
-    const serializedEvent = await EventSerializer.summaryForIndex(event)
+    const { body, user } = req
+    const cleanBody = cleanUserInput(body)
+    const cleanUser = cleanUserInput(user)
+    const event = await Event.query().insertAndFetch(cleanBody)
+    const cleanEvent = cleanUserInput(event)
+    await Follow.query().insert({userId: cleanUser.id, eventId: cleanEvent.id, isHost: true })
+    const serializedEvent = await EventSerializer.summaryForIndex(event, user)
     res.status(201).json({ event: serializedEvent })
   } catch (error) {
     if (error instanceof ValidationError) {

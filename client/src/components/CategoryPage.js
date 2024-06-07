@@ -1,7 +1,5 @@
 import React, { useState, useEffect} from "react";
 import { useParams } from 'react-router-dom'
-import EventTile from "./EventTile";
-import fetchEvents from "../services/fetchEvents";
 import NewEventForm from "./NewEventForm";
 import translateServerErrors from "../services/translateServerErrors";
 import Modal from 'react-modal'
@@ -29,12 +27,10 @@ const CategoryPage = (props) => {
     date: "",
     time: "",
     description: "",
-    userId: "",
     categoryId: ""
   })
-  const [events, setEvents] = useState([])
   const [errors, setErrors] = useState({})
-  const {categoryName} = useParams()
+  const { categoryName } = useParams()
   const [modalIsOpen, setIsOpen] = React.useState(false);
   
   let subtitle;
@@ -99,12 +95,11 @@ const CategoryPage = (props) => {
         }
     } else {
       const responseBody = await response.json()
-      setEvents([...events, responseBody.event])
+      setCategory({...category, events: [...category.events, responseBody.event ]})
       setNewEventData({
         date: "",
         time: "",
         description: "",
-        userId: "",
         categoryId: ""
       })
       setErrors({})
@@ -115,25 +110,10 @@ const CategoryPage = (props) => {
   }
 
   useEffect(() => {
-    const getEvents = async () => {
-      const newEvents = await fetchEvents()
-      setEvents(newEvents)
-    }
-    getEvents()
     getCategory()
   }, [])
 
-  const categoryEvents = events.filter(event => event.categoryId === category.id)
-
-  let now = Date.now()
-  const eventList = categoryEvents.map(event => {
-    event.startDate = new Date(event.startDate)
-    if (event.startDate > now) {
-      return <EventTile key={event.id} event={event} />
-    }
-  })
-
-  eventList.sort((a,b ) => a.props.event.startDate - b.props.event.startDate)
+  const categoryEvents = category.events
 
   return (
     <div>

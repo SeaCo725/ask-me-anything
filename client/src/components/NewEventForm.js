@@ -29,7 +29,6 @@ const NewEventForm = props => {
       const updatedEventData = {
         description: props.newEventData.description,
         startDate: startDate,
-        userId: props.user.id,
         categoryId: props.category.id
       }
       props.addEvent(updatedEventData)
@@ -43,7 +42,6 @@ const NewEventForm = props => {
       date: "",
       time: "",
       description: "",
-      userId: "",
       categoryId: ""
     })
     props.setErrors({})

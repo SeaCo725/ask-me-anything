@@ -4,5 +4,6 @@ const Event = require("./Event.js")
 const Category = require("./Category.js")
 const Question = require("./Question.js")
 const Answer = require("./Answer.js")
+const Follow = require('./Follow.js')
 
-module.exports = { User, Event, Category, Question, Answer };
+module.exports = { User, Event, Category, Question, Answer, Follow };

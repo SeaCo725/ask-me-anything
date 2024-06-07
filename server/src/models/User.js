@@ -38,14 +38,26 @@ class User extends uniqueFunc(Model) {
   }
 
   static get relationMapping() {
-    const { Event } = require("./index.js")
+    const { Event, Follow } = require("./index.js")
     return {
       events: {
-        relation: Model.HasManyRelation,
+        relation: Model.ManyToManyRelation,
         modelClass: Event,
         join: {
           from: "users.id",
-          to: "events.userId"
+          through: {
+            from: "follows.userId",
+            to: "follows.eventId"
+          },
+          to: "events.id"
+        }
+      },
+      follows: {
+        relation: Model.HasManyRelation,
+        modelClass: Follow,
+        join: {
+          from: "user.id",
+          to: "follows.userId"
         }
       }
     }
