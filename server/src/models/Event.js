@@ -8,17 +8,17 @@ class Event extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["description", "startDate", "categoryId", "userId"],
+      required: ["description", "startDate", "categoryId"],
       properties: {
         description: { type: "string" },
         startDate: { type: "string", format: "date-time"},
         categoryId: { type: "integer" },
-        userId: { type: "integer"}
+        isLive: { type: "boolean" }
       }
     }
   }
   static get relationMappings() {
-    const { Category, User, Question } = require("./index.js")
+    const { Category, User, Question, Follow } = require("./index.js")
     return {
       categories: {
         modelClass: Category,
@@ -28,11 +28,23 @@ class Event extends Model {
           to: "categories.id"
         }
       },
+      follows: {
+        modelClass: Follow,
+        relation: Model.HasManyRelation,
+        join: {
+          from: "events.id",
+          to: "follows.eventId"
+        }
+      },
       users: {
-        relation: Model.BelongsToOneRelation,
+        relation: Model.ManyToManyRelation,
         modelClass: User,
         join: {
-          from: "events.userId",
+          from: "events.id",
+          through: {
+            from: "follows.eventId",
+            to: "follows.userId"
+          },
           to: "users.id"
         }
       },

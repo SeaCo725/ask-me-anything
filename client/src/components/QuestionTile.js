@@ -51,7 +51,7 @@ const QuestionTile = (props) => {
 
   let deleteButton = null
   let answer = null
-  if (props.user && props.event.userId == props.user.id) {
+  if (props.user && props.event.host.id == props.user.id) {
     deleteButton = (
       <p className="delete-circle" onClick={deleteClick}>X</p>
     );

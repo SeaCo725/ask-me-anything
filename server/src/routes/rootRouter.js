@@ -6,6 +6,7 @@ import eventsRouter from "./api/v1/eventsRouter.js"
 import questionsRouter from "./api/v1/questionsRouter.js";
 import categoriesRouter from "./api/v1/categoriesRouter.js";
 import answersRouter from "./api/v1/answersRouter.js";
+import followRouter from "./api/v1/followRouter.js"
 
 const rootRouter = new express.Router();
 
@@ -13,6 +14,7 @@ rootRouter.use("/", clientRouter);
 rootRouter.use("/api/v1/answers", answersRouter);
 rootRouter.use("/api/v1/categories", categoriesRouter);
 rootRouter.use("/api/v1/events", eventsRouter);
+rootRouter.use("/api/v1/follow", followRouter);
 rootRouter.use("/api/v1/questions", questionsRouter);
 rootRouter.use("/api/v1/user-sessions", userSessionsRouter);
 rootRouter.use("/api/v1/users", usersRouter);

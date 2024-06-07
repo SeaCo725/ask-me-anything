@@ -3,7 +3,7 @@ const cleanUserInput = formInput => {
     if(formInput[field] === "") {
       delete formInput[field]
     }
-    if (field.includes('Id')) {
+    if (field.includes('Id') || field.includes('id')) {
       const parsedField = parseInt(formInput[field])
       if (!isNaN(parsedField)) {
         formInput[field] = parsedField

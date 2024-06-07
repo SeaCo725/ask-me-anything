@@ -51,6 +51,8 @@ const EventPage = (props) => {
       username: ""
     }
   })
+  const [isFollowing, setIsFollowing] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   let subtitle;
@@ -100,6 +102,18 @@ const EventPage = (props) => {
       }
     } catch (error) {
       console.log(`Error in the fetch: ${error.message}`)
+    }
+  }
+
+  const getFollowStatus = async () => {
+    try {
+      const response = await fetch(`/api/v1/follow/status?eventId=${event.id}&userId=${props.user.id}`)
+      const result = await response.json()
+      setIsFollowing(result.isFollowing)
+    } catch (error) {
+      console.error('Error fetching follow status:', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -177,7 +191,7 @@ const EventPage = (props) => {
         setQuestions(parsedResponse.event.questions)
       } 
     } catch(error) {
-        console.log("Error in the edit request: ", error.message);
+        console.error("Error in the edit request: ", error.message);
       }
   }
 
@@ -188,6 +202,12 @@ const EventPage = (props) => {
   useEffect(() => {
     getAnswers()
   }, [])
+
+  useEffect(() => {
+    if (event.id) {
+      getFollowStatus()
+    }
+  }, [event.id])
 
   const onOffToggle = () => {toggleLive()}
 
@@ -205,6 +225,29 @@ const EventPage = (props) => {
   const now = Date.now()
   const dateObject = new Date(event.startDate)
   const longDate = dateObject.toString()
+
+  const handleFollow = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/v1/follow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ eventId: event.id, userId: props.user.id, isHost: false }),
+      });
+
+      if (response.ok) {
+        setIsFollowing(true);
+      } else {
+        console.error('Failed to follow');
+      }
+    } catch (error) {
+      console.error('Error following:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <div className="event">
@@ -226,6 +269,10 @@ const EventPage = (props) => {
           <p>This event is hosted by - {event.host.username}</p>
           <p>This event is a Q&A in the {event.category.name} category.</p>
         </div>
+        {props.user && event.id && !eligibleToStart && props.user.id !== event.host.id ?
+          <button className="button" onClick={handleFollow} disabled={isFollowing || isLoading}>
+            {isLoading ? 'Following...' : isFollowing ? 'Following' : 'Follow'}
+          </button> : null }
       </div>
       {modalIsOpen ? profanityModal : null}
       <QuestionList 

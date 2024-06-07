@@ -9,7 +9,6 @@ class EventSerializer {
       "description", 
       "startDate", 
       "categoryId", 
-      "userId", 
       "isLive" 
     ]
 
@@ -31,20 +30,22 @@ class EventSerializer {
 
     const relatedCategory = await event.$relatedQuery("categories")
     serializedEvent.category = await CategorySerializer.summaryForIndex(relatedCategory)
-    serializedEvent.host = await event.$relatedQuery("users")
+    const hostFollowRecord = await event.$relatedQuery("follows").where('isHost', true).first()
+    serializedEvent.host = await hostFollowRecord.$relatedQuery('users')
     const relatedQuestions = await event.$relatedQuery("questions")
     serializedEvent.questions = await QuestionSerializer.summaryForList(relatedQuestions)
     return serializedEvent
   }
 
   static async summaryForCategory(events) {
-    const allowedAttributes = [ "id", "description", "startDate", "categoryId", "userId", "isLive" ]
+    const allowedAttributes = [ "id", "description", "startDate", "categoryId", "isLive" ]
     const serializedEvents = Promise.all(events.map( async (event) => {
       const serializedEvent = {}
       allowedAttributes.forEach(attribute => {
         serializedEvent[attribute] = event[attribute]
       })
-      serializedEvent.host = await event.$relatedQuery("users")
+      const hostFollowRecord = await event.$relatedQuery("follows").where('isHost', true).first()
+      serializedEvent.host = await hostFollowRecord.$relatedQuery('users')
       return serializedEvent
     }))
     return serializedEvents
