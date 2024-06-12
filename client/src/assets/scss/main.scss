@@ -110,20 +110,87 @@ body, html {
 }
 
 .event-header {
+  position: relative;
+  height: 350px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  // flex-wrap: wrap;
+}
+
+.header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  // white-space: nowrap;
+  pointer-events: none;
 }
 
 .event-text {
   text-align: center;
-  padding-top: 2rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
+  padding: 1rem 1rem;
+}
+
+.toggle-container {
+  position: absolute;
+  left: 2.5rem;
+  pointer-events: auto;
+}
+
+.follow-button {
+  margin: 0 10px;
+  pointer-events: auto;
+  position: absolute;
+  right: 5rem;
+}
+
+@media (max-width: 1000px) {
+  .event-header {
+    display: block; /* Revert to block layout on small screens */
+    text-align: center; /* Center everything horizontally */
+  }
+
+  .header-center {
+    position: static; /* Return to normal flow for vertical stacking */
+    transform: none; /* Remove transformation */
+    width: 100%;
+    margin-bottom: 20px;
+    pointer-events: auto; /* Ensure it can receive pointer events */
+  }
+
+  .toggle-container {
+    position: static; /* Allow buttons to flow normally */
+    display: block; /* Ensure buttons are block-level elements */
+    margin: 10px auto; /* Center buttons horizontally and add margin */
+    width: fit-content; /* Fit the button content */
+    padding-top: .5rem;
+  }
+
+  .live-toggle {
+    justify-self: center;
+    border: solid black;
+    background-color: rgb(171, 238, 229);
+    border-radius: .5rem;
+    padding: .25rem;
+    font-weight: bold;
+    margin: .5rem;
+    width: 60px;
+    height: 120px;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .follow-button {
+    position: static; /* Allow buttons to flow normally */
+    display: block; /* Ensure buttons are block-level elements */
+    margin: 10px auto; /* Center buttons horizontally */
+    width: fit-content; /* Fit the button content */
+  }
 }
 
 .question-container {
-  margin: 2rem;
+  margin: 4rem 2rem;
 }
 
 h1 {
@@ -222,12 +289,13 @@ h3 {
   display: flex;
   flex-wrap: wrap-reverse;
   margin: 0 1rem;
+  justify-content: center;
 }
 
 .answer-list-container {
   max-width: 32rem;
   min-width: 15rem;
-  margin: 0 .5rem;
+  margin: 0 3rem;
 }
 
 .question-form {
@@ -272,19 +340,16 @@ h3 {
   text-align: center;
 }
 
-.toggle-container {
-  justify-content: center;
-  margin-right: 20px;
-}
-
 .live-toggle {
+  justify-self: center;
   border: solid black;
   background-color: rgb(171, 238, 229);
   border-radius: .5rem;
-  padding: 1rem;
+  padding: .5rem;
   font-weight: bold;
   margin: 1rem;
-  min-width: 118px;
+  width: 118px;
+  justify-content: center;
   cursor: pointer;
 }
 
