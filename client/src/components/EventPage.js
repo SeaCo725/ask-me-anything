@@ -263,16 +263,20 @@ const EventPage = (props) => {
               />
             </div>
           </div> : null }
-        <div className="event-text">
-          <h1>{event.description}</h1>
-          <p>Event start time: {longDate}</p>
-          <p>This event is hosted by - {event.host.username}</p>
-          <p>This event is a Q&A in the {event.category.name} category.</p>
+        <div className="header-center">
+          <div className="event-text">
+            <h2>{event.description}</h2>
+            <p>Event start time: {longDate}</p>
+            <p>This event is hosted by - {event.host.username}</p>
+            <p>This event is a Q&A in the {event.category.name} category.</p>
+          </div>
         </div>
         {props.user && event.id && !eligibleToStart && props.user.id !== event.host.id ?
-          <button className="button" onClick={handleFollow} disabled={isFollowing || isLoading}>
-            {isLoading ? 'Following...' : isFollowing ? 'Following' : 'Follow'}
-          </button> : null }
+          <div className="follow-button">
+            <button className="button" onClick={handleFollow} disabled={isFollowing || isLoading}>
+              {isLoading ? 'Following...' : isFollowing ? 'Following' : 'Follow'}
+            </button>
+          </div> : null }
       </div>
       {modalIsOpen ? profanityModal : null}
       <QuestionList 
