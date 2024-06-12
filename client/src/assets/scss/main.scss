@@ -188,13 +188,6 @@ h3 {
   background: darkred
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
-  gap: 10px;
-  padding: 10px;
-}
-
 .grid-item {
   background-color: #f0f0f0;
   padding: 10px;

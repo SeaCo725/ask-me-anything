@@ -1,9 +1,10 @@
 import express from 'express'
-import Event from "../../../models/Event.js"
 import EventSerializer from '../../../Serializers/EventSerializer.js'
 import cleanUserInput from '../../../Services/cleanUserInput.js'
 import { ValidationError } from 'objection'
 import Follow from '../../../models/Follow.js'
+import { Event, User } from "../../../models/index.js"
+
 
 const eventsRouter = new express.Router()
 
@@ -12,6 +13,19 @@ eventsRouter.get("/", async (req, res) => {
     const events = await Event.query()
     const serializedEvents = await Promise.all(
       events.map(async (event) => EventSerializer.summaryForIndex(event)))
+    res.status(200).json({ events: serializedEvents })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ errors: error })
+  }
+})
+
+eventsRouter.get("/followed", async (req, res) => {
+  try{
+    const userId = req.user.id
+    const userRecord  = await User.query().findById(userId).first()
+    const followedEvents = await userRecord.$relatedQuery('events')
+    const serializedEvents = await EventSerializer.summaryForFollowed(followedEvents)
     res.status(200).json({ events: serializedEvents })
   } catch (error) {
     console.log(error)

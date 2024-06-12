@@ -50,6 +50,23 @@ class EventSerializer {
     }))
     return serializedEvents
   }
+
+  static async summaryForFollowed(events) {
+    const allowedAttributes = [ "id", "description", "startDate", "categoryId", "isLive" ]
+    const serializedEvents = Promise.all(events.map( async (event) => {
+      const serializedEvent = {}
+      allowedAttributes.forEach(attribute => {
+        serializedEvent[attribute] = event[attribute]
+      })
+      const hostFollowRecord = await event.$relatedQuery("follows").where('isHost', true).first()
+      serializedEvent.host = await hostFollowRecord.$relatedQuery('users')
+      const relatedCategory = await event.$relatedQuery("categories")
+      serializedEvent.category = relatedCategory
+  
+      return serializedEvent
+    }))
+    return serializedEvents
+  }
 }
 
 export default EventSerializer
