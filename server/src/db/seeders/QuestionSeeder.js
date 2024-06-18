@@ -8,7 +8,7 @@ class QuestionSeeder {
       await Question.query().insert({
         question: "What is your educational background?",
         eventId: i,
-        userId: i+1,
+        userId: 1,
       })
     }
     for (let i = 1; i < 90; i++) {
@@ -17,7 +17,7 @@ class QuestionSeeder {
         question: `Who or what has been the biggest influence in your career or life, 
         and how have they impacted you?`,
         eventId: i,
-        userId: i+1,
+        userId: 1,
       })
     }
     for (let i = 1; i < 90; i++) {
@@ -26,7 +26,7 @@ class QuestionSeeder {
         question: `What does a typical day look like for you, and how do you manage 
         your time and responsibilities?`,
         eventId: i,
-        userId: i+1,
+        userId: 1,
       })
     }
     for (let i = 1; i < 90; i++) {
@@ -35,7 +35,7 @@ class QuestionSeeder {
         question: `What are some of the biggest challenges you’ve faced in your career, 
         and how did you overcome them?`,
         eventId: i,
-        userId: i+1,
+        userId: 1,
       })
     }
     for (let i = 1; i < 90; i++) {
@@ -44,7 +44,7 @@ class QuestionSeeder {
         question: `What is one achievement or moment in your career that you are particularly 
         proud of?`,
         eventId: i,
-        userId: i+1,
+        userId: 1,
       })
     }
     for (let i = 1; i < 90; i++) {
@@ -53,7 +53,7 @@ class QuestionSeeder {
         question: `How has your field or industry changed since you started, and where do 
         you see it going in the future?`,
         eventId: i,
-        userId: i+1,
+        userId: 1,
       })
     }
     for (let i = 1; i < 90; i++) {
@@ -62,7 +62,7 @@ class QuestionSeeder {
         question: `What advice would you give to someone aspiring to enter your field or 
         follow a similar path?`,
         eventId: i,
-        userId: i+1,
+        userId: 1,
       })
     }
     for (let i = 1; i < 90; i++) {
@@ -70,7 +70,7 @@ class QuestionSeeder {
       await Question.query().insert({
         question: `What are some of your personal interests or hobbies?`,
         eventId: i,
-        userId: i+1,
+        userId: 1,
       })
     }
     for (let i = 1; i < 90; i++) {
@@ -78,7 +78,7 @@ class QuestionSeeder {
       await Question.query().insert({
         question: `If you could change anything, what would you do differently?`,
         eventId: i,
-        userId: i+1,
+        userId: 1,
       })
     }
     for (let i = 1; i < 90; i++) {
@@ -86,7 +86,7 @@ class QuestionSeeder {
       await Question.query().insert({
         question: `How can people contact you?`,
         eventId: i,
-        userId: i+1,
+        userId: 1,
       })
     }
     //Questions and answers for specific events

@@ -130,10 +130,11 @@ const QuestionTile = (props) => {
   } else answerForm = null
 
   return (
-    <div className="callout small-6 medium-4 large-3 cell">
+    <div className="callout small-6 medium-4 large-3 cell question-tile">
       <div className="question-item">
         {deleteButton}
-        <p className="question">{props.question.user.username} asks: {props.question.question}</p>
+        <p className="question">{props.question.question}</p>
+        <p className="source">{props.question.user.username}</p>
       </div>
       <div className="answer-container">
         {answer}
