@@ -48,7 +48,7 @@ const NewEventForm = props => {
   }
   
   return (
-    <form className='new-event-form' onSubmit={onSubmitHandler}>
+    <form className='form-box' onSubmit={onSubmitHandler}>
       <ErrorList errors={props.errors}/>
       <h3>Host Event:</h3>
       <div>
