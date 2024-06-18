@@ -9,7 +9,14 @@ import QuestionSeeder from "./seeders/QuestionSeeder.js";
 class Seeder {
   static async seed() {
     
-    for (let i = 1; i <= 150; i++) {
+    await User.query().insert({
+      email: 'admin@email.com',
+      username: 'admin',
+      cryptedPassword: "$2b$10$Qva5eK8DC6d4MQpOnjcvde8z7M4AF1uJ3IN5k.LtHq/./RLSXYxqO",
+      image: "https://www.digitary.net/wp-content/uploads/2021/07/Generic-Profile-Image.png"
+    })
+
+    for (let i = 2; i <= 150; i++) {
       
       await User.query().insert({
         email: `email${i}@email.com`,

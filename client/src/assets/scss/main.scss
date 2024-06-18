@@ -115,7 +115,6 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  // flex-wrap: wrap;
 }
 
 .header-center {
@@ -123,7 +122,6 @@ body, html {
   left: 50%;
   transform: translateX(-50%);
   width: 75%;
-  // white-space: nowrap;
   pointer-events: none;
 }
 
@@ -275,14 +273,19 @@ h3 {
 
 .answer-container {
   width: 100%;
+  display: grid;
 }
 
 .answer-toggle {
-  position: absolute;
-  bottom: 0px;
-  right: 5px;
+  display: inline-block;
+  justify-self: end;
   font-weight: bold;
+  margin-bottom: 0px;
   cursor: pointer;
+}
+
+.answer-toggle:hover {
+  color: darkgreen;
 }
 
 .answer-box {
@@ -336,6 +339,12 @@ h3 {
   padding-left: 15px;
 }
 
+.source {
+  color: gray;
+  display: inline;
+  justify-content: end;
+}
+
 .center-text {
   text-align: center;
 }
@@ -359,4 +368,12 @@ h3 {
 
 .no-wrap {
   flex-wrap: nowrap;
+}
+
+.question-item {
+  margin-bottom: 0px;
+}
+
+.question-tile {
+  padding-bottom: 0px;
 }
