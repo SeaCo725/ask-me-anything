@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import QuestionList from "./QuestionList";
 import QuestionForm from "./QuestionForm";
 import { useParams } from "react-router-dom"
@@ -21,10 +21,12 @@ const customStyles = {
 Modal.setAppElement('#app')
 
 const EventPage = (props) => {
+  const Ref = useRef(null)
   const [eligibleToStart, setEligibleToStart] = useState(false)
   const [errors, setErrors] = useState({})
   const [answers, setAnswers] = useState([])
   const [questions, setQuestions] = useState([])
+  const [timer, setTimer] = useState("00:00:00")
   const [questionPayload, setQuestionPayload] = useState({
     question: ""
   })
@@ -204,10 +206,20 @@ const EventPage = (props) => {
   }, [])
 
   useEffect(() => {
-    if (event.id) {
+    if (event.id && props.user) {
       getFollowStatus()
     }
   }, [event.id])
+
+  useEffect(() => {
+    if (event.startDate) clearTimer(event.startDate)
+  }, [event.startDate])
+
+  useEffect(() => {
+    return () => {
+      if (Ref.current) clearInterval(Ref.current);
+    };
+  }, []);
 
   const onOffToggle = () => {toggleLive()}
 
@@ -225,6 +237,47 @@ const EventPage = (props) => {
   const now = Date.now()
   const dateObject = new Date(event.startDate)
   const longDate = dateObject.toString()
+
+  const getTimeRemaining = (e) => {
+    const total = Date.parse(e) - Date.parse(new Date())
+    const seconds = Math.floor((total / 1000) % 60)
+    const minutes = Math.floor((total / 1000 / 60) % 60)
+    const hours = Math.floor((total / 1000 / 60 / 60) % 24)
+    const days = Math.floor(total / (1000 * 60 * 60 * 24));
+    return {
+      total,
+      days,
+      hours,
+      minutes,
+      seconds
+    }
+  }
+
+  const startTimer = (e) => {
+    let { total, days, hours, minutes, seconds } = getTimeRemaining(e)
+    if (total >= 0) {
+      setTimer(
+        (days > 1 ? days + " days" : days == 1 ? days + " day" : " ") + " " +
+        (hours > 9 ? hours : "0" + hours) + "h:" + 
+        (minutes > 9 ? minutes : "0" + minutes) + "m:" +
+        (seconds > 9 ? seconds : "0" + seconds) + "s"
+      )
+    }
+  }
+
+  const clearTimer = (e) => {
+    if (Ref.current) clearInterval(Ref.current);
+    const id = setInterval(() => {
+      startTimer(e)
+    }, 1000)
+    Ref.current = id
+  }
+
+  const getDeadTime = () => {
+    let deadline = new Date();
+    deadline.setSeconds(deadline.getSeconds() + 10)
+    return deadline
+  }
 
   const handleFollow = async () => {
     setIsLoading(true)
@@ -269,6 +322,7 @@ const EventPage = (props) => {
             <p>Event start time: {longDate}</p>
             <p>This event is hosted by - {event.host.username}</p>
             <p>This event is a Q&A in the {event.category.name} category.</p>
+            <h2>{timer}</h2>
           </div>
         </div>
         {props.user && event.id && !eligibleToStart && props.user.id !== event.host.id ?
