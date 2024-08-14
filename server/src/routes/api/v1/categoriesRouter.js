@@ -6,7 +6,7 @@ const categoriesRouter = new express.Router()
 
 categoriesRouter.get("/", async (req, res) => {
   try {
-    const categories = await Category.query()
+    const categories = await Category.query().where('parent_id', '=', 0)
     const serializedCategories = await Promise.all(categories.map(async category => {
       return await CategorySerializer.summaryForIndex(category)
     }))

@@ -14,8 +14,9 @@ class Category extends unique(Model) {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["name"],
+      required: ["name", "parent_id"],
       properties: {
+        parent_id: { type: "integer" },
         name: { type: "string", minLength: 2, maxLength: 100 },
         description: { type: "string", maxLength: 2500 }
       }

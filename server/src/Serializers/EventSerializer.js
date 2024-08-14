@@ -1,6 +1,6 @@
 import QuestionSerializer from "./QuestionSerializer.js"
 import CategorySerializer from "./CategorySerializer.js"
-import { Event } from "../models/index.js"
+import { Event, Category } from "../models/index.js"
 
 class EventSerializer {
   static async summaryForIndex(event) {
@@ -8,7 +8,8 @@ class EventSerializer {
       "id", 
       "description", 
       "startDate", 
-      "categoryId", 
+      "categoryId",
+      "subcategoryId", 
       "isLive" 
     ]
 
@@ -28,8 +29,10 @@ class EventSerializer {
       serializedEvent.isLive = updatedEvent.isLive
     }
 
-    const relatedCategory = await event.$relatedQuery("categories")
+    const relatedSubcategory = await event.$relatedQuery("categories")
+    const relatedCategory = await Category.query().findById(event.categoryId)
     serializedEvent.category = await CategorySerializer.summaryForIndex(relatedCategory)
+    serializedEvent.subcategory = await CategorySerializer.summaryForIndex(relatedSubcategory)
     const hostFollowRecord = await event.$relatedQuery("follows").where('isHost', true).first()
     serializedEvent.host = await hostFollowRecord.$relatedQuery('users')
     const relatedQuestions = await event.$relatedQuery("questions")
@@ -38,7 +41,7 @@ class EventSerializer {
   }
 
   static async summaryForCategory(events) {
-    const allowedAttributes = [ "id", "description", "startDate", "categoryId", "isLive" ]
+    const allowedAttributes = [ "id", "description", "startDate", "categoryId", "subcategoryId", "isLive" ]
     const serializedEvents = Promise.all(events.map( async (event) => {
       const serializedEvent = {}
       allowedAttributes.forEach(attribute => {
@@ -52,7 +55,7 @@ class EventSerializer {
   }
 
   static async summaryForFollowed(events) {
-    const allowedAttributes = [ "id", "description", "startDate", "categoryId", "isLive" ]
+    const allowedAttributes = [ "id", "description", "startDate", "categoryId", "subcategoryId", "isLive" ]
     const serializedEvents = Promise.all(events.map( async (event) => {
       const serializedEvent = {}
       allowedAttributes.forEach(attribute => {

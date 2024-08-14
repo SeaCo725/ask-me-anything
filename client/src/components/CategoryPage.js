@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from "react";
 import { useParams } from 'react-router-dom'
 import NewEventForm from "./NewEventForm";
-import translateServerErrors from "../services/translateServerErrors";
 import Modal from 'react-modal'
 import LiveEvents from "./LiveEvents";
 import UpcomingEvents from './UpcomingEvents'
@@ -21,13 +20,10 @@ Modal.setAppElement('#app')
 
 const CategoryPage = (props) => {
   const [category, setCategory] = useState({
-    events: []
-  })
-  const [newEventData, setNewEventData] = useState({
-    date: "",
-    time: "",
-    description: "",
-    categoryId: ""
+    events: [],
+    subCategories: [
+      {name: ""},
+    ]
   })
   const [errors, setErrors] = useState({})
   const { categoryName } = useParams()
@@ -74,41 +70,6 @@ const CategoryPage = (props) => {
     }
   }
 
-  const addEvent = async (formPayload) => {
-    try {
-      const response = await fetch("/api/v1/events", {
-        method: 'POST',
-        headers: new Headers ({
-          'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify(formPayload)
-      })
-      if (!response.ok) {
-        if (response.status === 422) {
-          const errorBody = await response.json()
-          const newErrors = translateServerErrors(errorBody.errors)
-          return setErrors(newErrors)
-        } else {
-          const errorMessage = `${response.status} (${response.statusText})`
-          const error = new Error(errorMessage)
-          throw error
-        }
-    } else {
-      const responseBody = await response.json()
-      setCategory({...category, events: [...category.events, responseBody.event ]})
-      setNewEventData({
-        date: "",
-        time: "",
-        description: "",
-        categoryId: ""
-      })
-      setErrors({})
-    }
-    } catch (error) {
-      console.error(`Error in the fetch:${ error.message }`)
-    }
-  }
-
   useEffect(() => {
     getCategory()
   }, [])
@@ -119,7 +80,7 @@ const CategoryPage = (props) => {
     <div>
       <div className="category-header">
         <h1>Welcome to {category.name}!</h1>
-        <h4>Description: {category.description}</h4>
+        <h4>{category.description}</h4>
       </div>
       {modalIsOpen ? profanityModal : null}
       <LiveEvents events={categoryEvents}/>
@@ -130,10 +91,8 @@ const CategoryPage = (props) => {
           errors={errors} 
           setErrors={setErrors}
           category={category} 
-          user={props.user} 
-          addEvent={addEvent}
-          newEventData={newEventData}
-          setNewEventData={setNewEventData}
+          setCategory={setCategory}
+          user={props.user}
           openModal={openModal}
         />
       </div> : <p>Login to create an event.</p>}
