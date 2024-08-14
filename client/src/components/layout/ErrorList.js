@@ -6,11 +6,19 @@ const ErrorList = (props) => {
     let index = 0;
     const listItems = errantFields.map((field) => {
       index++;
-      return (
-        <li key={index}>
-          {field} {props.errors[field]}
-        </li>
-      );
+      if (field === "Subcategory Id") {
+        return (
+          <li key ={index}>
+            Must select a Subcategory
+          </li>
+        );
+      } else {
+        return (
+          <li key={index}>
+            {field} {props.errors[field]}
+          </li>
+        );
+      }
     });
     return (
       <div className="callout alert">

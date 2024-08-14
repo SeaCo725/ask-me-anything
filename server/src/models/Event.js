@@ -8,11 +8,12 @@ class Event extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["description", "startDate", "categoryId"],
+      required: ["description", "startDate", "categoryId", "subcategoryId"],
       properties: {
         description: { type: "string" },
         startDate: { type: "string", format: "date-time"},
         categoryId: { type: "integer" },
+        subcategoryId: { type: "integer" },
         isLive: { type: "boolean" }
       }
     }
@@ -24,7 +25,7 @@ class Event extends Model {
         modelClass: Category,
         relation: Model.BelongsToOneRelation,
         join: {
-          from: "events.categoryId",
+          from: "events.subcategoryId",
           to: "categories.id"
         }
       },

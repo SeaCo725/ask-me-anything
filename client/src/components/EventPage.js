@@ -44,6 +44,9 @@ const EventPage = (props) => {
       name: "",
       updatedAt: ""
     },
+    subcategory: {
+      name: ""
+    },
     host: {
       createdAt: "",
       email: "",
@@ -322,6 +325,7 @@ const EventPage = (props) => {
             <p>Event start time: {longDate}</p>
             <p>This event is hosted by - {event.host.username}</p>
             <p>This event is a Q&A in the {event.category.name} category.</p>
+            <p>The associated subcategory is {event.subcategory.name}</p>
             <h2>{timer}</h2>
           </div>
         </div>

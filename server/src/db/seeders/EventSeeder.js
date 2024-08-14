@@ -1,545 +1,632 @@
-import { Event } from "../../models/index.js"
-import dateDifference from "../../Services/dateDifference.js"
+import { Event } from "../../models/index.js";
+import dateDifference from "../../Services/dateDifference.js";
 
 class EventSeeder {
   static async seed() {
-
-    //1 DATE FORMAT (string): "2024-06-14 17:00:00"
     await Event.query().insert({
       description: "Q&A with a real astronaut",
-      startDate: dateDifference(-4,0,-1),
-      categoryId: 1,
-    })
-    //2
+      startDate: dateDifference(-4, 0, -1),
+      categoryId: 6, // Science and Environment
+      subcategoryId: 72, // Astronomy and Space Exploration
+    });
+
     await Event.query().insert({
       description: "A hedge fund manager reveals their secrets",
       startDate: dateDifference(0, -4),
-      categoryId: 5,
-    })
-    //3
+      categoryId: 3, // Business and Finance
+      subcategoryId: 40, // Investment and Stock Market
+    });
+
     await Event.query().insert({
       description: `A practicing defense attorney answers questions in a way that 
       does not constitute legal advice`,
       startDate: dateDifference(0),
-      categoryId: 8,
-    })
-    //4
+      categoryId: 10, // Legal and Regulatory
+      subcategoryId: 110, // Criminal Law
+    });
+
     await Event.query().insert({
       description: "Michael Jordan dunks on the haters",
       startDate: dateDifference(2),
-      categoryId: 2,
-    })
-    //5
+      categoryId: 13, // Sports and Recreation
+      subcategoryId: 140, // Team Sports Coaching
+    });
+
     await Event.query().insert({
       description: "A Q&A with an experienced nurse",
       startDate: dateDifference(4),
-      categoryId: 3,
-    })
-    //6
+      categoryId: 4, // Health and Wellness
+      subcategoryId: 55, // Nursing and Patient Care
+    });
+
     await Event.query().insert({
       description: "Bill Gates fields YOUR questions",
       startDate: dateDifference(6),
-      categoryId: 4,
-    })
-    //7
+      categoryId: 1, // Technology
+      subcategoryId: 20, // Blockchain and Cryptocurrencies
+    });
+
     await Event.query().insert({
       description: "Global Warming. Fact or Fiction?",
       startDate: dateDifference(8),
-      categoryId: 19,
-    })
-    //8
+      categoryId: 6, // Science and Environment
+      subcategoryId: 71, // Climate Change and Sustainability
+    });
+
     await Event.query().insert({
       description: "Rutkers Biology Professor AMA",
       startDate: dateDifference(10),
-      categoryId: 6,
-    })
-    //9
+      categoryId: 6, // Science and Environment
+      subcategoryId: 74, // Environmental Science and Ecology
+    });
+
     await Event.query().insert({
       description: "Engineering Guru AMA",
       startDate: dateDifference(12),
-      categoryId: 7,
-    })
-    //10
+      categoryId: 11, // Engineering
+      subcategoryId: 122, // Electrical Engineering
+    });
+
     await Event.query().insert({
       description: "Legal Expert Open Discussion",
       startDate: dateDifference(14),
-      categoryId: 8,
-    })
-    //11
+      categoryId: 10, // Legal and Regulatory
+      subcategoryId: 110, // Criminal Law
+    });
+
     await Event.query().insert({
       description: "Time to Judge your questions on my 10 year career as a judge.",
       startDate: dateDifference(16),
-      categoryId: 8,
-    })
-    //12
+      categoryId: 10, // Legal and Regulatory
+      subcategoryId: 159, // Judicial and Legal Affairs
+    });
+
     await Event.query().insert({
       description: "Media and Entertainment Insider Q&A",
       startDate: dateDifference(18),
-      categoryId: 9,
-    })
-    //13
+      categoryId: 7, // Arts and Entertainment
+      subcategoryId: 81, // Film and Television
+    });
+
     await Event.query().insert({
       description: "Software Developer AMA",
       startDate: dateDifference(20),
-      categoryId: 10,
-    })
-    //14
+      categoryId: 1, // Technology
+      subcategoryId: 18, // Software Development and Programming
+    });
+
     await Event.query().insert({
       description: "Cybersecurity Specialist Forum",
       startDate: dateDifference(22),
-      categoryId: 11,
-    })
-    //15
+      categoryId: 1, // Technology
+      subcategoryId: 17, // Cybersecurity
+    });
+
     await Event.query().insert({
       description: "Artificial Intelligence Expert Live Q&A",
       startDate: dateDifference(0, 1),
-      categoryId: 12,
-    })
-    //16
+      categoryId: 1, // Technology
+      subcategoryId: 16, // Artificial Intelligence and Machine Learning
+    });
+
     await Event.query().insert({
       description: "Automotive Technician Q&A",
       startDate: dateDifference(2, 1),
-      categoryId: 13,
-    })
-    //17
+      categoryId: 12, // Automotive
+      subcategoryId: 131, // Engine and Powertrain Technology
+    });
+
     await Event.query().insert({
       description: "Pastry Chef Live Q&A",
       startDate: dateDifference(4, 1),
-      categoryId: 14,
-    })
-    //18
+      categoryId: 2, // Food and Cooking
+      subcategoryId: 28, // Baking and Pastry Arts
+    });
+
     await Event.query().insert({
       description: "Sommelier Wine Discussion",
       startDate: dateDifference(6, 1),
-      categoryId: 15,
-    })
-    //19
+      categoryId: 2, // Food and Cooking
+      subcategoryId: 34, // Wine and Beverage Expertise
+    });
+
     await Event.query().insert({
       description: "Food Safety Inspector AMA",
       startDate: dateDifference(8, 1),
-      categoryId: 16,
-    })
-    //20
+      categoryId: 2, // Food and Cooking
+      subcategoryId: 38, // Food Safety and Inspection
+    });
+
     await Event.query().insert({
       description: "Film Director Live Discussion",
       startDate: dateDifference(10, 1),
-      categoryId: 17,
-    })
-    //21
+      categoryId: 7, // Arts and Entertainment
+      subcategoryId: 81, // Film and Television
+    });
+
     await Event.query().insert({
       description: "Music Producer Open Forum",
       startDate: dateDifference(12, 1),
-      categoryId: 18,
-    })
-    //22
+      categoryId: 7, // Arts and Entertainment
+      subcategoryId: 82, // Music Industry
+    });
+
     await Event.query().insert({
       description: "Climate Scientist Q&A",
       startDate: dateDifference(14, 1),
-      categoryId: 19,
-    })
-    //23
+      categoryId: 6, // Science and Environment
+      subcategoryId: 71, // Climate Change and Sustainability
+    });
+
     await Event.query().insert({
       description: "Residential Realtor AMA",
       startDate: dateDifference(16, 1),
-      categoryId: 20,
-    })
-    //24
+      categoryId: 3, // Business and Finance
+      subcategoryId: 44, // Real Estate
+    });
+
     await Event.query().insert({
       description: "Exploring the Future of Human Space Travel",
       startDate: dateDifference(18, 1),
-      categoryId: 1,
-    })
-    //25
+      categoryId: 6, // Science and Environment
+      subcategoryId: 72, // Astronomy and Space Exploration
+    });
+
     await Event.query().insert({
       description: "Insights from a Champion Athlete",
       startDate: dateDifference(20, 1),
-      categoryId: 2,
-    })
-    //26
+      categoryId: 13, // Sports and Recreation
+      subcategoryId: 140, // Team Sports Coaching
+    });
+
     await Event.query().insert({
       description: "Advances in Modern Healthcare",
       startDate: dateDifference(22, 1),
-      categoryId: 3,
-    })
-    //27
+      categoryId: 4, // Health and Wellness
+      subcategoryId: 55, // Nursing and Patient Care
+    });
+
     await Event.query().insert({
       description: "Tech Trends and Innovations Discussion",
       startDate: dateDifference(0, 2),
-      categoryId: 4,
-    })
-    //28
+      categoryId: 1, // Technology
+      subcategoryId: 22, // Cloud Computing
+    });
+
     await Event.query().insert({
       description: "Financial Markets and Investment Strategies",
       startDate: dateDifference(2, 2),
-      categoryId: 5,
-    })
-    //29
+      categoryId: 3, // Business and Finance
+      subcategoryId: 40, // Investment and Stock Market
+    });
+
     await Event.query().insert({
       description: "Teaching Techniques and Education Strategies",
       startDate: dateDifference(4, 2),
-      categoryId: 6,
-    })
-    //30
+      categoryId: 5, // Education
+      subcategoryId: 70, // Teaching Strategies and Pedagogy
+    });
+
     await Event.query().insert({
       description: "Engineering Breakthroughs Q&A",
       startDate: dateDifference(6, 2),
-      categoryId: 7,
-    })
-    //31
+      categoryId: 11, // Engineering
+      subcategoryId: 120, // Civil Engineering
+    });
+
     await Event.query().insert({
       description: "The Role of Law in Society Today",
       startDate: dateDifference(8, 2),
-      categoryId: 8,
-    })
-    //32
+      categoryId: 10, // Legal and Regulatory
+      subcategoryId: 110, // Criminal Law
+    });
+
     await Event.query().insert({
       description: "Behind the Scenes in Media and Entertainment",
       startDate: dateDifference(10, 2),
-      categoryId: 9,
-    })
-    //33
+      categoryId: 7, // Arts and Entertainment
+      subcategoryId: 81, // Film and Television
+    });
+
     await Event.query().insert({
       description: "Programming Best Practices and Tips",
       startDate: dateDifference(12, 2),
-      categoryId: 10,
-    })
-    //34
+      categoryId: 1, // Technology
+      subcategoryId: 18, // Software Development and Programming
+    });
+
     await Event.query().insert({
       description: "Cybersecurity Threats and Protection Methods",
       startDate: dateDifference(14, 2),
-      categoryId: 11,
-    })
-    //35
+      categoryId: 1, // Technology
+      subcategoryId: 17, // Cybersecurity
+    });
+
     await Event.query().insert({
       description: "Future Prospects in Artificial Intelligence",
       startDate: dateDifference(16, 2),
-      categoryId: 12,
-    })
-    //36
+      categoryId: 1, // Technology
+      subcategoryId: 16, // Artificial Intelligence and Machine Learning
+    });
+
     await Event.query().insert({
       description: "Auto Repair Techniques and Innovations",
       startDate: dateDifference(18, 2),
-      categoryId: 13,
-    })
-    //37
+      categoryId: 12, // Automotive
+      subcategoryId: 131, // Engine and Powertrain Technology
+    });
+
     await Event.query().insert({
       description: "Creating Art with Pastry: Techniques and Tips",
       startDate: dateDifference(20, 2),
-      categoryId: 14,
-    })
-    //38
+      categoryId: 2, // Food and Cooking
+      subcategoryId: 28, // Baking and Pastry Arts
+    });
+
     await Event.query().insert({
       description: "Wine Culture and Expert Advice",
       startDate: dateDifference(22, 2),
-      categoryId: 15,
-    })
-    //39
+      categoryId: 2, // Food and Cooking
+      subcategoryId: 34, // Wine and Beverage Expertise
+    });
+
     await Event.query().insert({
       description: "Ensuring Food Safety Standards",
       startDate: dateDifference(0, 3),
-      categoryId: 16,
-    })
-    //40
+      categoryId: 2, // Food and Cooking
+      subcategoryId: 38, // Food Safety and Inspection
+    });
+
     await Event.query().insert({
       description: "Film Production: From Script to Screen",
       startDate: dateDifference(2, 3),
-      categoryId: 17,
-    })
-    //41
+      categoryId: 7, // Arts and Entertainment
+      subcategoryId: 81, // Film and Television
+    });
+
     await Event.query().insert({
       description: "The Process of Music Production",
       startDate: dateDifference(4, 3),
-      categoryId: 18,
-    })
-    //42
+      categoryId: 7, // Arts and Entertainment
+      subcategoryId: 82, // Music Industry
+    });
+
     await Event.query().insert({
       description: "Understanding Climate Change and Its Impact",
       startDate: dateDifference(6, 3),
-      categoryId: 19,
-    })
-    //43
+      categoryId: 6, // Science and Environment
+      subcategoryId: 71, // Climate Change and Sustainability
+    });
+
     await Event.query().insert({
       description: "Real Estate Market Insights and Trends",
       startDate: dateDifference(8, 3),
-      categoryId: 20,
-    })
-    //44
+      categoryId: 3, // Business and Finance
+      subcategoryId: 44, // Real Estate
+    });
+
     await Event.query().insert({
       description: "Human Spaceflight: Challenges and Solutions",
       startDate: dateDifference(10, 3),
-      categoryId: 1,
-    })
-    //45
+      categoryId: 6, // Science and Environment
+      subcategoryId: 72, // Astronomy and Space Exploration
+    });
+
     await Event.query().insert({
       description: "Training Regimens of Top Athletes",
       startDate: dateDifference(12, 3),
-      categoryId: 2,
-    })
-    //46
+      categoryId: 13, // Sports and Recreation
+      subcategoryId: 140, // Team Sports Coaching
+    });
+
     await Event.query().insert({
       description: "Innovative Treatments in Healthcare",
       startDate: dateDifference(14, 3),
-      categoryId: 3,
-    })
-    //47
+      categoryId: 4, // Health and Wellness
+      subcategoryId: 55, // Nursing and Patient Care
+    });
+
     await Event.query().insert({
       description: "Future of Tech: A Panel Discussion",
       startDate: dateDifference(16, 3),
-      categoryId: 4,
-    })
-    //48
+      categoryId: 1, // Technology
+      subcategoryId: 22, // Cloud Computing
+    });
+
     await Event.query().insert({
       description: "Personal Finance Management Tips",
       startDate: dateDifference(18, 3),
-      categoryId: 5,
-    })
-    //49
+      categoryId: 3, // Business and Finance
+      subcategoryId: 41, // Personal Finance and Budgeting
+    });
+
     await Event.query().insert({
       description: "Interactive Session with Educators",
       startDate: dateDifference(20, 3),
-      categoryId: 6,
-    })
-    //50
+      categoryId: 5, // Education
+      subcategoryId: 70, // Teaching Strategies and Pedagogy
+    });
+
     await Event.query().insert({
       description: "Space Exploration: Past, Present, and Future",
       startDate: dateDifference(22, 3),
-      categoryId: 1,
-    })
-    //51
+      categoryId: 6, // Science and Environment
+      subcategoryId: 72, // Astronomy and Space Exploration
+    });
+
     await Event.query().insert({
       description: "Life as a Pro Athlete: Training and Beyond",
       startDate: dateDifference(0, 4),
-      categoryId: 2,
-    })
-    //52
+      categoryId: 13, // Sports and Recreation
+      subcategoryId: 140, // Team Sports Coaching
+    });
+
     await Event.query().insert({
-      description: "Breakthroughs in Medical Science",
+      description: "The Future of Healthcare",
       startDate: dateDifference(2, 4),
-      categoryId: 3,
-    })
-    //53
+      categoryId: 4, // Health and Wellness
+      subcategoryId: 55, // Nursing and Patient Care
+    });
+
     await Event.query().insert({
-      description: "Emerging Technologies and Their Impact",
+      description: "Cloud Computing Trends",
       startDate: dateDifference(4, 4),
-      categoryId: 4,
-    })
-    //54
+      categoryId: 1, // Technology
+      subcategoryId: 22, // Cloud Computing
+    });
+
     await Event.query().insert({
-      description: "Investment Strategies in a Changing Economy",
+      description: "Investment Strategies",
       startDate: dateDifference(6, 4),
-      categoryId: 5,
-    })
-    //55
+      categoryId: 3, // Business and Finance
+      subcategoryId: 40, // Investment and Stock Market
+    });
+
     await Event.query().insert({
-      description: "Innovative Teaching Methods and Their Effectiveness",
+      description: "Modern Teaching Techniques",
       startDate: dateDifference(8, 4),
-      categoryId: 6,
-    })
-    //56
+      categoryId: 5, // Education
+      subcategoryId: 70, // Teaching Strategies and Pedagogy
+    });
+
     await Event.query().insert({
-      description: "Engineering Challenges and Solutions",
+      description: "Space Exploration Developments",
       startDate: dateDifference(10, 4),
-      categoryId: 7,
-    })
-    //57
+      categoryId: 6, // Science and Environment
+      subcategoryId: 72, // Astronomy and Space Exploration
+    });
+
     await Event.query().insert({
-      description: "Legal Ethics and Modern Law Practices",
+      description: "Training Programs for Athletes",
       startDate: dateDifference(12, 4),
-      categoryId: 8,
-    })
-    //58
+      categoryId: 13, // Sports and Recreation
+      subcategoryId: 140, // Team Sports Coaching
+    });
+
     await Event.query().insert({
-      description: "The Evolution of Media and Entertainment",
+      description: "Advances in Healthcare Technology",
       startDate: dateDifference(14, 4),
-      categoryId: 9,
-    })
-    //59
+      categoryId: 4, // Health and Wellness
+      subcategoryId: 55, // Nursing and Patient Care
+    });
+
     await Event.query().insert({
-      description: "Advanced Software Development Techniques",
+      description: "Cloud Computing Innovations",
       startDate: dateDifference(16, 4),
-      categoryId: 10,
-    })
-    //60
+      categoryId: 1, // Technology
+      subcategoryId: 22, // Cloud Computing
+    });
+
     await Event.query().insert({
-      description: "Cybersecurity: Protecting Your Digital World",
+      description: "Personal Finance Advice",
       startDate: dateDifference(18, 4),
-      categoryId: 11,
-    })
-    //61
+      categoryId: 3, // Business and Finance
+      subcategoryId: 41, // Personal Finance and Budgeting
+    });
+
     await Event.query().insert({
-      description: "AI Innovations: Transforming Industries",
+      description: "Challenges in Higher Education",
       startDate: dateDifference(20, 4),
-      categoryId: 12,
-    })
-    //62
+      categoryId: 5, // Education
+      subcategoryId: 70, // Teaching Strategies and Pedagogy
+    });
+
     await Event.query().insert({
-      description: "Modern Automotive Technologies",
+      description: "The Future of Space Exploration",
       startDate: dateDifference(22, 4),
-      categoryId: 13,
-    })
-    //63
+      categoryId: 6, // Science and Environment
+      subcategoryId: 72, // Astronomy and Space Exploration
+    });
+
     await Event.query().insert({
-      description: "Baking Mastery with a Pastry Chef",
+      description: "Training Techniques for Professional Athletes",
       startDate: dateDifference(0, 5),
-      categoryId: 14,
-    })
-    //64
+      categoryId: 13, // Sports and Recreation
+      subcategoryId: 140, // Team Sports Coaching
+    });
+
     await Event.query().insert({
-      description: "Wine Tasting: From Novice to Connoisseur",
+      description: "Innovations in Healthcare",
       startDate: dateDifference(2, 5),
-      categoryId: 15,
-    })
-    //65
+      categoryId: 4, // Health and Wellness
+      subcategoryId: 55, // Nursing and Patient Care
+    });
+
     await Event.query().insert({
-      description: "Ensuring Food Quality and Safety",
+      description: "Trends in Cloud Computing",
       startDate: dateDifference(4, 5),
-      categoryId: 16,
-    })
-    //66
+      categoryId: 1, // Technology
+      subcategoryId: 22, // Cloud Computing
+    });
+
     await Event.query().insert({
-      description: "Directing Films: The Art and Craft",
+      description: "Investment Tips",
       startDate: dateDifference(6, 5),
-      categoryId: 17,
-    })
-    //67
+      categoryId: 3, // Business and Finance
+      subcategoryId: 40, // Investment and Stock Market
+    });
+
     await Event.query().insert({
-      description: "Inside the Music Studio: Production Insights",
+      description: "Effective Teaching Methods",
       startDate: dateDifference(8, 5),
-      categoryId: 18,
-    })
-    //68
+      categoryId: 5, // Education
+      subcategoryId: 70, // Teaching Strategies and Pedagogy
+    });
+
     await Event.query().insert({
-      description: "Climate Change: Science and Solutions",
+      description: "Astronomy and Space Science",
       startDate: dateDifference(10, 5),
-      categoryId: 19,
-    })
-    //69
+      categoryId: 6, // Science and Environment
+      subcategoryId: 72, // Astronomy and Space Exploration
+    });
+
     await Event.query().insert({
-      description: "Navigating the Real Estate Market",
+      description: "Athlete Nutrition and Training",
       startDate: dateDifference(12, 5),
-      categoryId: 20,
-    })
-    //70
+      categoryId: 13, // Sports and Recreation
+      subcategoryId: 140, // Team Sports Coaching
+    });
+
     await Event.query().insert({
-      description: "Space Missions: Planning and Execution",
+      description: "Technological Advances in Medicine",
       startDate: dateDifference(14, 5),
-      categoryId: 1,
-    })
-    //71
+      categoryId: 4, // Health and Wellness
+      subcategoryId: 55, // Nursing and Patient Care
+    });
+
     await Event.query().insert({
-      description: "Professional Sports: Career Pathways and Challenges",
+      description: "Cloud Computing and Future Trends",
       startDate: dateDifference(16, 5),
-      categoryId: 2,
-    })
-    //72
+      categoryId: 1, // Technology
+      subcategoryId: 22, // Cloud Computing
+    });
+
     await Event.query().insert({
-      description: "Healthcare Innovations: What's Next?",
+      description: "Budgeting and Personal Finance Tips",
       startDate: dateDifference(18, 5),
-      categoryId: 3,
-    })
-    //73
+      categoryId: 3, // Business and Finance
+      subcategoryId: 41, // Personal Finance and Budgeting
+    });
+
     await Event.query().insert({
-      description: "The Future of Technology: A Discussion",
+      description: "Higher Education Challenges and Opportunities",
       startDate: dateDifference(20, 5),
-      categoryId: 4,
-    })
-    //74
+      categoryId: 5, // Education
+      subcategoryId: 70, // Teaching Strategies and Pedagogy
+    });
+
     await Event.query().insert({
-      description: "Financial Planning for the Modern World",
+      description: "The Future of Space Travel",
       startDate: dateDifference(22, 5),
-      categoryId: 5,
-    })
-    //75
+      categoryId: 6, // Science and Environment
+      subcategoryId: 72, // Astronomy and Space Exploration
+    });
+
     await Event.query().insert({
-      description: "Effective Education Practices in the 21st Century",
+      description: "Training Techniques of Elite Athletes",
       startDate: dateDifference(0, 6),
-      categoryId: 6,
-    })
-    //76
+      categoryId: 13, // Sports and Recreation
+      subcategoryId: 140, // Team Sports Coaching
+    });
+
     await Event.query().insert({
-      description: "Innovations in Engineering: A Deep Dive",
+      description: "Innovations in Medical Technology",
       startDate: dateDifference(2, 6),
-      categoryId: 7,
-    })
-    //77
+      categoryId: 4, // Health and Wellness
+      subcategoryId: 55, // Nursing and Patient Care
+    });
+
     await Event.query().insert({
-      description: "Contemporary Issues in Law",
+      description: "Emerging Trends in Cloud Computing",
       startDate: dateDifference(4, 6),
-      categoryId: 8,
-    })
-    //78
+      categoryId: 1, // Technology
+      subcategoryId: 22, // Cloud Computing
+    });
+
     await Event.query().insert({
-      description: "Media Evolution: New Trends and Technologies",
+      description: "Investment Tips for the Modern Investor",
       startDate: dateDifference(6, 6),
-      categoryId: 9,
-    })
-    //79
+      categoryId: 3, // Business and Finance
+      subcategoryId: 40, // Investment and Stock Market
+    });
+
     await Event.query().insert({
-      description: "The Essentials of Software Development",
+      description: "Effective Teaching Strategies",
       startDate: dateDifference(8, 6),
-      categoryId: 10,
-    })
-    //80
+      categoryId: 5, // Education
+      subcategoryId: 70, // Teaching Strategies and Pedagogy
+    });
+
     await Event.query().insert({
-      description: "Cybersecurity in the Digital Age",
+      description: "Astronomy and Space Exploration",
       startDate: dateDifference(10, 6),
-      categoryId: 11,
-    })
-    //81
+      categoryId: 6, // Science and Environment
+      subcategoryId: 72, // Astronomy and Space Exploration
+    });
+
     await Event.query().insert({
-      description: "AI in Everyday Life: Applications and Benefits",
+      description: "Athlete Nutrition and Performance",
       startDate: dateDifference(12, 6),
-      categoryId: 12,
-    })
-    //82
+      categoryId: 13, // Sports and Recreation
+      subcategoryId: 140, // Team Sports Coaching
+    });
+
     await Event.query().insert({
-      description: "Automotive Maintenance Tips and Tricks",
+      description: "Technological Advances in Healthcare",
       startDate: dateDifference(14, 6),
-      categoryId: 13,
-    })
-    //83
+      categoryId: 4, // Health and Wellness
+      subcategoryId: 55, // Nursing and Patient Care
+    });
+
     await Event.query().insert({
-      description: "Pastry Arts: Techniques and Trends",
+      description: "Cloud Computing and Its Future",
       startDate: dateDifference(16, 6),
-      categoryId: 14,
-    })
-    //84
+      categoryId: 1, // Technology
+      subcategoryId: 22, // Cloud Computing
+    });
+
     await Event.query().insert({
-      description: "Sommelier Insights: Wine Tasting and Selection",
+      description: "Budgeting and Personal Finance Tips",
       startDate: dateDifference(18, 6),
-      categoryId: 15,
-    })
-    //85
+      categoryId: 3, // Business and Finance
+      subcategoryId: 41, // Personal Finance and Budgeting
+    });
+
     await Event.query().insert({
-      description: "Food Safety: Ensuring Quality from Farm to Table",
+      description: "Higher Education Challenges and Opportunities",
       startDate: dateDifference(20, 6),
-      categoryId: 16,
-    })
-    //86
+      categoryId: 5, // Education
+      subcategoryId: 70, // Teaching Strategies and Pedagogy
+    });
+
     await Event.query().insert({
-      description: "Directing 101: The Basics of Filmmaking",
+      description: "The Future of Space Travel",
       startDate: dateDifference(22, 6),
-      categoryId: 17,
-    })
-    //87
+      categoryId: 6, // Science and Environment
+      subcategoryId: 72, // Astronomy and Space Exploration
+    });
+
     await Event.query().insert({
       description: "Music Production: From Concept to Creation",
       startDate: dateDifference(2, 0, 1),
-      categoryId: 18,
-    })
-    //88
+      categoryId: 7, // Arts and Entertainment
+      subcategoryId: 82, // Music
+    });
+
     await Event.query().insert({
       description: "Climate Science: Current Research and Findings",
       startDate: dateDifference(4, 0, 6),
-      categoryId: 19,
-    })
-    //89
+      categoryId: 6, // Science and Environment
+      subcategoryId: 71, // Climate Science
+    });
+
     await Event.query().insert({
       description: "Residential Real Estate: Tips from the Experts",
       startDate: dateDifference(6, 3, 2, 1),
-      categoryId: 20,
-    })
+      categoryId: 3, // Business and Finance
+      subcategoryId: 44, // Real Estate
+    });
   }
 }
 
-export default EventSeeder
+export default EventSeeder;

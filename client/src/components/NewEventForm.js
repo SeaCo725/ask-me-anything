@@ -1,9 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { RegExpMatcher, englishDataset, englishRecommendedTransformers } from 'obscenity'
 import ErrorList from './layout/ErrorList';
-
+import translateServerErrors from "../services/translateServerErrors";
 
 const NewEventForm = props => {
+  const [newEventData, setNewEventData] = useState({
+    date: "",
+    time: "",
+    description: "",
+    subCategory: "",
+    categoryId: "",
+    subcategoryId: ""
+  })
 
   const matcher = new RegExpMatcher({
     ...englishDataset.build(), 
@@ -16,37 +24,94 @@ const NewEventForm = props => {
   }
   
   const onChangeHandler = event => {
-    props.setNewEventData({
-      ...props.newEventData,
+    setNewEventData({
+      ...newEventData,
       [event.currentTarget.name]: event.currentTarget.value
     })
   }
 
+  const addEvent = async (formPayload) => {
+    try {
+      const response = await fetch("/api/v1/events", {
+        method: 'POST',
+        headers: new Headers ({
+          'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(formPayload)
+      })
+      if (!response.ok) {
+        if (response.status === 422) {
+          const errorBody = await response.json()
+          const newErrors = translateServerErrors(errorBody.errors)
+          return props.setErrors(newErrors)
+        } else {
+          const errorMessage = `${response.status} (${response.statusText})`
+          const error = new Error(errorMessage)
+          throw error
+        }
+    } else {
+      const responseBody = await response.json()
+      props.setCategory({...props.category, events: [...props.category.events, responseBody.event ]})
+      setNewEventData({
+        date: "",
+        time: "",
+        description: "",
+        categoryId: ""
+      })
+      props.setErrors({})
+    }
+    } catch (error) {
+      console.error(`Error in the fetch:${ error.message }`)
+    }
+  }
+
   const onSubmitHandler = event => {
     event.preventDefault()
-    if (!matcher.hasMatch(props.newEventData.description)) {
-      const startDate = combineDateAndTime(props.newEventData.date, props.newEventData.time)
+    if (!matcher.hasMatch(newEventData.description)) {
+      const startDate = combineDateAndTime(newEventData.date, newEventData.time)
       const updatedEventData = {
-        description: props.newEventData.description,
+        description: newEventData.description,
         startDate: startDate,
-        categoryId: props.category.id
+        categoryId: props.category.id,
+        subcategoryId: newEventData.subcategoryId
       }
-      props.addEvent(updatedEventData)
+      addEvent(updatedEventData)
     } else {
       props.openModal()
     }
   }
 
   const clearForm = () => {
-    props.setNewEventData({
+    setNewEventData({
       date: "",
       time: "",
       description: "",
-      categoryId: ""
+      categoryId: "",
+      subCategory: ""
     })
     props.setErrors({})
   }
-  
+
+  if (newEventData.subCategory) {
+    props.category.subCategories.forEach(subCategory => {
+      if (subCategory.name === newEventData.subCategory) {
+        newEventData.subcategoryId = subCategory.id
+      }
+    });
+  } else newEventData.subcategoryId = ""
+    
+    const blankOption = <option key="" value=""></option>
+    
+    const subCategoryList = props.category.subCategories.map(subCategory => {
+      return (
+        <option key={subCategory.id} value={subCategory.name}>
+          {subCategory.name}
+        </option>
+      )
+    })
+    
+    const subCategoryOptions = [blankOption, ...subCategoryList]
+    
   return (
     <form className='form-box' onSubmit={onSubmitHandler}>
       <ErrorList errors={props.errors}/>
@@ -56,7 +121,7 @@ const NewEventForm = props => {
           <input 
             type="date" 
             name="date"
-            value={props.newEventData.date} 
+            value={newEventData.date} 
             onChange={onChangeHandler} />
         </label>
       </div>
@@ -65,9 +130,19 @@ const NewEventForm = props => {
           <input 
             type="time" 
             name="time"
-            value={props.newEventData.time} 
+            value={newEventData.time} 
             onChange={onChangeHandler} />
         </label>
+      </div>
+      <div>
+        <label htmlFor='subCategory'> Subcategory:</label>
+          <select 
+            name="subCategory" 
+            onChange={onChangeHandler}
+            value={newEventData.subCategory}
+          >
+            {subCategoryOptions}
+          </select>
       </div>
       <div>
         <label htmlFor='description'> Description:
@@ -75,7 +150,7 @@ const NewEventForm = props => {
           rows="3"
           cols="40"
           name="description"
-          value={props.newEventData.description} 
+          value={newEventData.description} 
           onChange={onChangeHandler} />
         </label>
       </div>
