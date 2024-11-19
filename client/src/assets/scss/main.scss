@@ -75,6 +75,10 @@ body, html {
   padding: .5rem;
 }
 
+.event-container {
+  margin-right: .5rem;
+}
+
 .event-tile {
   background-color: #e0f7fa;
   padding: 10px;
@@ -376,4 +380,33 @@ h3 {
 
 .question-tile {
   padding-bottom: 0px;
+}
+
+.more-or-less {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #007BFF;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.more-button {
+  text-align: left;
+  width: fit-content;
+}
+
+.more-button:hover {
+  text-decoration: underline;
+}
+
+.less-button {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.less-button:hover {
+  text-decoration: underline;
 }
