@@ -1,3 +1,5 @@
+//cleans data to convert strings to integers where possible and remove empty strings
+
 const cleanUserInput = formInput => {
   Object.keys(formInput).forEach(field => {
     if(formInput[field] === "") {
